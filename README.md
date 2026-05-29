@@ -91,10 +91,10 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=mi_taalamul_huda
 DB_USER=postgres
-DB_PASSWORD=123
+DB_PASSWORD=
 
 PORT=3000
-JWT_SECRET=mi_taalamul_huda_rahasia_super_panjang_2026
+JWT_SECRET=aku_suka_jang_wonyoung_rawrr
 
 UPLOAD_DIR=uploads
 MAX_FILE_SIZE=5242880

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Panel — MI Ta'alamul Huda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --green-deep:#0d3320;--green-dark:#1a5c38;--green-main:#1e7a46;
+  --green-mid:#27a35a;--green-pale:#e8f5ee;--green-mist:#f0f9f3;
+  --gold:#c8930a;--gold-light:#f0b429;--gold-pale:#fef9c3;
+  --white:#fff;--light:#f1f5f9;--text:#1e293b;--gray:#64748b;
+  --success:#16a34a;--error:#dc2626;--warn:#d97706;
+  --sidebar:230px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:var(--light);color:var(--text);}
+
+/* ── LOGIN ── */
+.login-page{min-height:100vh;background:var(--green-deep);background-image:radial-gradient(ellipse at 50% 60%,rgba(39,163,90,.2),transparent 60%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");display:flex;align-items:center;justify-content:center;padding:24px;}
+.login-box{background:var(--white);border-radius:22px;padding:44px 38px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-arabic{font-family:'Amiri',serif;text-align:center;color:var(--gold);font-size:22px;margin-bottom:16px;}
+.login-logo{text-align:center;margin-bottom:28px;}
+.login-icon{width:60px;height:60px;background:linear-gradient(135deg,var(--green-main),var(--green-mid));border-radius:16px;margin:auto auto 10px;display:flex;align-items:center;justify-content:center;font-size:28px;}
+.login-logo h2{font-family:'Amiri',serif;font-size:20px;color:var(--green-deep);}
+.login-logo p{font-size:12px;color:var(--gray);margin-top:3px;}
+.lg{margin-bottom:16px;}
+.lg label{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.lg input{width:100%;padding:11px 14px;border:2px solid #e0ece4;border-radius:10px;font-size:14px;font-family:'Nunito',sans-serif;outline:none;transition:.2s;}
+.lg input:focus{border-color:var(--green-main);box-shadow:0 0 0 3px rgba(30,122,70,.1);}
+.login-err{background:#fef2f2;border:1px solid #fecaca;color:var(--error);font-size:13px;font-weight:600;padding:10px 14px;border-radius:8px;margin-bottom:14px;display:none;}
+.btn-login{width:100%;background:linear-gradient(135deg,var(--green-main),var(--green-mid));color:#fff;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:.25s;margin-top:4px;}
+.btn-login:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(30,122,70,.35);}
+.login-hint{text-align:center;font-size:12px;color:var(--gray);margin-top:14px;}
+
+/* ── ADMIN LAYOUT ── */
+.admin-layout{display:none;min-height:100vh;}
+.admin-layout.show{display:flex;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--green-deep);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");}
+.sb-logo{padding:20px 16px;border-bottom:1px solid rgba(255,255,255,.07);}
+.sb-icon{font-size:26px;margin-bottom:6px;}
+.sb-name{font-family:'Amiri',serif;color:var(--gold-light);font-size:15px;line-height:1.3;}
+.sb-sub{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.sb-menu{padding:12px 10px;flex:1;}
+.sb-label{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);padding:14px 8px 6px;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;cursor:pointer;color:rgba(255,255,255,.55);font-size:13px;font-weight:600;transition:.2s;margin-bottom:2px;text-decoration:none;}
+.sb-item:hover{background:rgba(255,255,255,.06);color:var(--white);}
+.sb-item.active{background:rgba(200,147,10,.18);color:var(--gold-light);}
+.sb-icon-item{font-size:16px;width:20px;text-align:center;}
+.sb-user{padding:14px;border-top:1px solid rgba(255,255,255,.07);}
+.sb-uname{font-size:13px;color:var(--white);font-weight:700;}
+.sb-urole{font-size:11px;color:var(--gold);}
+.btn-logout{width:100%;background:rgba(220,38,38,.12);color:#f87171;border:1px solid rgba(220,38,38,.22);padding:8px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:8px;transition:.2s;}
+.btn-logout:hover{background:rgba(220,38,38,.2);}
+
+/* MAIN */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.topbar{background:var(--white);border-bottom:1px solid #e2e8f0;padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.topbar-title{font-weight:800;font-size:16px;color:var(--green-deep);}
+.topbar-right{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray);}
+.content{padding:24px;flex:1;}
+
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px;}
+.stat-card{background:var(--white);border-radius:16px;padding:20px;box-shadow:0 1px 10px rgba(0,0,0,.05);border-left:4px solid transparent;}
+.stat-card.c-total{border-color:var(--green-main);}
+.stat-card.c-tunggu{border-color:var(--warn);}
+.stat-card.c-terima{border-color:var(--success);}
+.stat-card.c-tolak{border-color:var(--error);}
+.sc-em{font-size:26px;margin-bottom:8px;}
+.sc-num{font-family:'Amiri',serif;font-size:30px;font-weight:700;color:var(--green-deep);}
+.sc-label{font-size:13px;color:var(--gray);margin-top:3px;font-weight:600;}
+
+/* CARD */
+.card{background:var(--white);border-radius:16px;box-shadow:0 1px 10px rgba(0,0,0,.05);overflow:hidden;}
+.card-header{padding:16px 22px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.card-title{font-weight:800;font-size:15px;color:var(--green-deep);}
+.card-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+input.search{padding:9px 13px;border:1.5px solid #e0ece4;border-radius:8px;font-size:13px;font-family:'Nunito',sans-serif;outline:none;width:200px;}
+input.search:focus{border-color:var(--green-main);}
+select.filter{padding:9px 11px;border:1.5px solid #e0ece4;border-radius:8px;font-size:13px;font-family:'Nunito',sans-serif;outline:none;}
+.btn-sm{padding:9px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;font-family:'Nunito',sans-serif;transition:.2s;}
+.btn-green{background:var(--green-main);color:#fff;}
+.btn-green:hover{background:var(--green-dark);}
+.btn-export{background:var(--green-deep);color:#fff;}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;}
+thead{background:#f8fafc;}
+th{text-align:left;padding:11px 16px;font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #f1f5f9;}
+td{padding:12px 16px;font-size:13px;color:#334155;border-bottom:1px solid #f8fafc;vertical-align:middle;}
+tr:last-child td{border:none;}
+tr:hover td{background:#fafdfb;}
+.badge{padding:4px 11px;border-radius:50px;font-size:11px;font-weight:800;display:inline-block;}
+.b-tunggu{background:var(--gold-pale);color:#92400e;}
+.b-diterima{background:#dcfce7;color:var(--success);}
+.b-ditolak{background:#fee2e2;color:var(--error);}
+.dok-chip{display:inline-flex;gap:4px;flex-wrap:wrap;}
+.dok-chip span{font-size:11px;padding:2px 8px;border-radius:50px;font-weight:700;}
+.dok-ada{background:#dcfce7;color:var(--success);}
+.dok-none{background:#f1f5f9;color:var(--gray);}
+.act-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.abt{padding:5px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:none;font-family:'Nunito',sans-serif;}
+.abt-view{background:#eff6ff;color:#1d4ed8;}
+.abt-acc{background:#dcfce7;color:var(--success);}
+.abt-rej{background:#fee2e2;color:var(--error);}
+.abt-del{background:#f1f5f9;color:var(--gray);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:20px;width:100%;max-width:620px;}
+.modal-head{padding:18px 22px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--white);border-radius:20px 20px 0 0;}
+.modal-head h3{font-family:'Amiri',serif;font-size:18px;color:var(--green-deep);}
+.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--gray);}
+.modal-body{padding:22px;}
+.dr{display:grid;grid-template-columns:140px 1fr;gap:8px;padding:9px 0;border-bottom:1px solid #f8fafc;font-size:13px;}
+.dr:last-child{border:none;}
+.dl{color:var(--gray);font-weight:600;}
+.dv{color:var(--text);font-weight:700;}
+.modal-sect{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--green-main);padding:14px 0 6px;grid-column:span 2;}
+.modal-foot{padding:16px 22px;border-top:1px solid #f1f5f9;display:flex;gap:10px;justify-content:flex-end;align-items:center;}
+.file-link{display:inline-flex;align-items:center;gap:5px;color:var(--green-main);font-size:12px;font-weight:700;text-decoration:none;padding:4px 10px;background:var(--green-pale);border-radius:6px;}
+
+/* KONTEN FORM */
+.konten-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.ktab{padding:9px 18px;border-radius:8px;border:2px solid #e0ece4;background:var(--white);font-size:13px;font-weight:700;cursor:pointer;transition:.2s;font-family:'Nunito',sans-serif;}
+.ktab.active{border-color:var(--green-main);background:var(--green-mist);color:var(--green-dark);}
+.kpanel{display:none;}
+.kpanel.active{display:block;}
+.form-konten{display:flex;flex-direction:column;gap:11px;padding:22px;}
+.form-konten input,.form-konten textarea,.form-konten select{padding:11px 13px;border:1.5px solid #e0ece4;border-radius:10px;font-size:13px;font-family:'Nunito',sans-serif;outline:none;}
+.form-konten input:focus,.form-konten textarea:focus{border-color:var(--green-main);}
+.form-konten textarea{min-height:88px;resize:vertical;}
+.form-konten label{font-size:12px;font-weight:700;color:var(--text);}
+.btn-add{background:linear-gradient(135deg,var(--green-main),var(--green-mid));color:#fff;border:none;padding:11px 22px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;align-self:flex-start;}
+.item-list{padding:0 22px 22px;display:flex;flex-direction:column;gap:10px;}
+.item-entry{background:var(--green-mist);border-radius:12px;padding:14px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.ie-title{font-weight:800;font-size:13px;color:var(--green-deep);}
+.ie-sub{font-size:12px;color:var(--gray);margin-top:3px;}
+.ie-del{background:#fee2e2;color:var(--error);border:none;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--green-deep);color:#fff;padding:14px 22px;border-radius:12px;font-size:14px;font-weight:700;z-index:9999;transform:translateY(80px);opacity:0;transition:.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.toast-err{background:var(--error);}
+
+/* LOADING */
+.spin{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty-state{text-align:center;padding:48px;color:var(--gray);}
+.empty-state div{font-size:48px;margin-bottom:12px;}
+
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .sidebar{transform:translateX(-100%);}
+  .main{margin-left:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div class="login-page" id="loginPage">
+  <div class="login-box">
+    <div class="login-arabic">بِسْمِ اللهِ</div>
+    <div class="login-logo">
+      <div class="login-icon">🕌</div>
+      <h2>Admin Panel</h2>
+      <p>MI Ta'alamul Huda</p>
+    </div>
+    <div class="login-err" id="loginErr"></div>
+    <div class="lg"><label>Username</label><input type="text" id="loginUser" placeholder="admin" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <div class="lg"><label>Password</label><input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+    <button class="btn-login" id="btnLogin" onclick="doLogin()">Masuk</button>
+    <div class="login-hint">Gunakan akun yang telah didaftarkan administrator.</div>
+  </div>
+</div>
+
+<!-- ── ADMIN LAYOUT ── -->
+<div class="admin-layout" id="adminLayout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-icon">🕌</div>
+      <div class="sb-name">MI Ta'alamul Huda</div>
+      <div class="sb-sub">Admin Panel</div>
+    </div>
+    <nav class="sb-menu">
+      <div class="sb-label">Utama</div>
+      <a class="sb-item active" onclick="showPage('dashboard',this)"><span class="sb-icon-item">📊</span> Dashboard</a>
+      <div class="sb-label">PPDB</div>
+      <a class="sb-item" onclick="showPage('pendaftar',this)"><span class="sb-icon-item">📋</span> Data Pendaftar</a>
+      <div class="sb-label">Konten</div>
+      <a class="sb-item" onclick="showPage('konten',this)"><span class="sb-icon-item">✏️</span> Berita & Info</a>
+      <a class="sb-item" onclick="showPage('testi',this)"><span class="sb-icon-item">💬</span> Testimoni</a>
+      <a class="sb-item" onclick="showPage('galeri',this)"><span class="sb-icon-item">🖼️</span> Galeri</a>
+      <a class="sb-item" onclick="showPage('profil',this)"><span class="sb-icon-item">🏫</span> Profil Sekolah</a>
+      <div class="sb-label">Lainnya</div>
+      <a class="sb-item" href="index.html" target="_blank"><span class="sb-icon-item">🌐</span> Lihat Website</a>
+    </nav>
+    <div class="sb-user">
+      <div class="sb-uname" id="sbUname">Administrator</div>
+      <div class="sb-urole">Admin</div>
+      <button class="btn-logout" onclick="doLogout()">🚪 Keluar</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-right" id="topbarDate"></div>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card c-total"><div class="sc-em">📋</div><div class="sc-num" id="st-total">—</div><div class="sc-label">Total Pendaftar</div></div>
+          <div class="stat-card c-tunggu"><div class="sc-em">⏳</div><div class="sc-num" id="st-tunggu">—</div><div class="sc-label">Menunggu</div></div>
+          <div class="stat-card c-terima"><div class="sc-em">✅</div><div class="sc-num" id="st-terima">—</div><div class="sc-label">Diterima</div></div>
+          <div class="stat-card c-tolak"><div class="sc-em">❌</div><div class="sc-num" id="st-tolak">—</div><div class="sc-label">Ditolak</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📋 Pendaftar Terbaru</div>
+            <button class="btn-sm btn-green" onclick="showPage('pendaftar', document.querySelector('.sb-item:nth-child(4)'))">Lihat Semua →</button>
+          </div>
+          <table>
+            <thead><tr><th>No. Daftar</th><th>Nama</th><th>Kelas</th><th>Tanggal</th><th>Status</th></tr></thead>
+            <tbody id="dashTable"><tr><td colspan="5" class="empty-state" style="padding:32px;text-align:center;color:var(--gray);">Memuat...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PENDAFTAR -->
+      <div class="page" id="page-pendaftar">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📋 Data Pendaftar Siswa Baru</div>
+            <div class="card-actions">
+              <input class="search" placeholder="🔍 Cari nama / nomor..." oninput="filterPendaftar()" id="srInput"/>
+              <select class="filter" onchange="filterPendaftar()" id="srStatus">
+                <option value="">Semua Status</option>
+                <option>Menunggu Verifikasi</option>
+                <option>Diterima</option>
+                <option>Ditolak</option>
+              </select>
+              <button class="btn-sm btn-export" onclick="exportCSV()">⬇️ CSV</button>
+            </div>
+          </div>
+          <div id="pendaftarWrap">
+            <table>
+              <thead><tr><th>No. Daftar</th><th>Nama</th><th>JK</th><th>Kelas</th><th>HP Ortu</th><th>Dokumen</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+              <tbody id="pendaftarTable"></tbody>
+            </table>
+            <div class="empty-state" id="emptyPendaftar" style="display:none;"><div>📭</div><p>Belum ada data pendaftar.</p></div>
+          </div>
+          <div id="pagination" style="padding:16px 22px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--gray);border-top:1px solid #f1f5f9;"></div>
+        </div>
+      </div>
+
+      <!-- KONTEN: BERITA -->
+      <div class="page" id="page-konten">
+        <div class="card">
+          <div class="card-header"><div class="card-title">📰 Kelola Berita & Pengumuman</div></div>
+          <div class="form-konten">
+            <label>Judul Berita</label><input type="text" id="b-judul" placeholder="Judul berita..."/>
+            <label>Kategori</label>
+            <select id="b-kat"><option>Pengumuman</option><option>Prestasi</option><option>Kegiatan</option><option>Akademik</option></select>
+            <label>Emoji</label><input type="text" id="b-emoji" placeholder="📰" maxlength="5"/>
+            <label>Konten / Ringkasan</label><textarea id="b-konten" placeholder="Isi berita..."></textarea>
+            <button class="btn-add" onclick="addBerita()">+ Tambah Berita</button>
+          </div>
+          <div class="item-list" id="berita-list"><div class="empty-state"><div>📰</div><p>Memuat berita...</p></div></div>
+        </div>
+      </div>
+
+      <!-- TESTIMONI -->
+      <div class="page" id="page-testi">
+        <div class="card">
+          <div class="card-header"><div class="card-title">💬 Kelola Testimoni</div></div>
+          <div class="form-konten">
+            <label>Nama</label><input type="text" id="t-nama" placeholder="Nama pemberi testimoni..."/>
+            <label>Peran</label><input type="text" id="t-peran" placeholder="Orang Tua Siswa Kelas 3..."/>
+            <label>Isi Testimoni</label><textarea id="t-teks" placeholder="Cerita/testimoni..."></textarea>
+            <label>Bintang</label>
+            <select id="t-bintang"><option value="5">⭐⭐⭐⭐⭐ 5</option><option value="4">⭐⭐⭐⭐ 4</option><option value="3">⭐⭐⭐ 3</option></select>
+            <button class="btn-add" onclick="addTestimoni()">+ Tambah Testimoni</button>
+          </div>
+          <div class="item-list" id="testi-list"></div>
+        </div>
+      </div>
+
+      <!-- GALERI -->
+      <div class="page" id="page-galeri">
+        <div class="card">
+          <div class="card-header"><div class="card-title">🖼️ Kelola Galeri</div></div>
+          <div class="form-konten">
+            <label>Judul / Nama Kegiatan</label><input type="text" id="g-judul" placeholder="Wisuda & Khataman..."/>
+            <label>Emoji</label><input type="text" id="g-emoji" placeholder="🎓" maxlength="5"/>
+            <label>Kategori</label><input type="text" id="g-kat" placeholder="Wisuda, Olahraga, Seni..."/>
+            <button class="btn-add" onclick="addGaleri()">+ Tambah Item</button>
+          </div>
+          <div class="item-list" id="galeri-list"></div>
+        </div>
+      </div>
+
+      <!-- PROFIL -->
+      <div class="page" id="page-profil">
+        <div class="card">
+          <div class="card-header"><div class="card-title">🏫 Edit Profil Sekolah</div></div>
+          <div class="form-konten">
+            <label>Nama Sekolah</label><input type="text" id="p-nama"/>
+            <label>Tagline</label><input type="text" id="p-tagline"/>
+            <label>Visi</label><textarea id="p-visi"></textarea>
+            <label>Misi</label><textarea id="p-misi"></textarea>
+            <label>No. WhatsApp (format: 628xxx)</label><input type="text" id="p-wa"/>
+            <label>Kepala Madrasah</label><input type="text" id="p-kepala"/>
+            <label>Alamat</label><textarea id="p-alamat" style="min-height:60px;"></textarea>
+            <label>Telepon</label><input type="text" id="p-telp"/>
+            <label>Email</label><input type="email" id="p-email"/>
+            <button class="btn-add" onclick="saveProfil()">💾 Simpan Perubahan</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /admin-layout -->
+
+<!-- MODAL DETAIL -->
+<div class="modal-overlay" id="modalOv" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-head"><h3 id="modalTitle">Detail Pendaftar</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API   = 'http://localhost:3000/api';
+let TOKEN   = sessionStorage.getItem('adminToken');
+let ADMIN   = JSON.parse(sessionStorage.getItem('adminInfo') || '{}');
+let allData = [];
+let currentPage = 1;
+const PER_PAGE  = 15;
+
+// ── AUTH ──────────────────────────────────────────────────────
+async function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value.trim();
+  const btn = document.getElementById('btnLogin');
+  if (!u || !p) { showLoginErr('Username dan password wajib diisi.'); return; }
+  btn.innerHTML = '<span class="spin"></span> Masuk...';
+  btn.disabled = true;
+  try {
+    const res  = await fetch(`${API}/auth/login`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username:u,password:p}) });
+    const data = await res.json();
+    if (!data.success) { showLoginErr(data.message || 'Login gagal.'); btn.innerHTML='Masuk'; btn.disabled=false; return; }
+    TOKEN = data.token;
+    ADMIN = data.admin;
+    sessionStorage.setItem('adminToken', TOKEN);
+    sessionStorage.setItem('adminInfo', JSON.stringify(ADMIN));
+    bootAdmin();
+  } catch(e) {
+    showLoginErr('Tidak dapat terhubung ke server.');
+    btn.innerHTML='Masuk'; btn.disabled=false;
+  }
+}
+function showLoginErr(msg) { const el=document.getElementById('loginErr'); el.textContent=msg; el.style.display='block'; }
+function doLogout() { sessionStorage.clear(); location.reload(); }
+
+function bootAdmin() {
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('adminLayout').classList.add('show');
+  document.getElementById('sbUname').textContent = ADMIN.nama || 'Admin';
+  document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  loadStats();
+  loadRecentDash();
+}
+if (TOKEN) bootAdmin();
+
+// ── PAGE NAV ──────────────────────────────────────────────────
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = {dashboard:'Dashboard',pendaftar:'Data Pendaftar',konten:'Berita & Pengumuman',testi:'Testimoni',galeri:'Galeri',profil:'Profil Sekolah'};
+  document.getElementById('topbarTitle').textContent = titles[id] || id;
+  if (id==='pendaftar') loadPendaftar();
+  if (id==='konten')    loadBerita();
+  if (id==='testi')     loadTestimoni();
+  if (id==='galeri')    loadGaleri();
+  if (id==='profil')    loadProfil();
+}
+
+// ── API HELPER ────────────────────────────────────────────────
+async function apiFetch(url, opts={}) {
+  const headers = { 'Authorization': 'Bearer '+TOKEN, ...opts.headers };
+  if (!(opts.body instanceof FormData)) headers['Content-Type'] = 'application/json';
+  const res  = await fetch(API+url, { ...opts, headers });
+  const data = await res.json();
+  if (res.status === 401) { doLogout(); }
+  return { res, data };
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const {data} = await apiFetch('/pendaftaran/stats');
+    if (data.success) {
+      const s = data.data;
+      document.getElementById('st-total').textContent  = s.total   || 0;
+      document.getElementById('st-tunggu').textContent = s.menunggu || 0;
+      document.getElementById('st-terima').textContent = s.diterima || 0;
+      document.getElementById('st-tolak').textContent  = s.ditolak  || 0;
+    }
+  } catch(e) {}
+}
+async function loadRecentDash() {
+  try {
+    const {data} = await apiFetch('/pendaftaran?limit=5');
+    const tbody = document.getElementById('dashTable');
+    if (!data.success || !data.data.length) {
+      tbody.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:32px;">Belum ada pendaftar</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.data.map(d=>`
+      <tr>
+        <td><strong>${d.nomor_daftar}</strong></td>
+        <td>${d.nama_lengkap}</td>
+        <td>${d.kelas_tujuan}</td>
+        <td>${new Date(d.tanggal_daftar).toLocaleDateString('id-ID')}</td>
+        <td>${badgeStatus(d.status)}</td>
+      </tr>`).join('');
+  } catch(e) {}
+}
+
+// ── PENDAFTAR ─────────────────────────────────────────────────
+async function loadPendaftar(page=1) {
+  currentPage = page;
+  const q   = document.getElementById('srInput')?.value || '';
+  const st  = document.getElementById('srStatus')?.value || '';
+  const qs  = new URLSearchParams({page, limit:PER_PAGE, ...(q&&{search:q}), ...(st&&{status:st})});
+  try {
+    const {data} = await apiFetch('/pendaftaran?'+qs);
+    allData = data.data || [];
+    const tbody = document.getElementById('pendaftarTable');
+    const empty = document.getElementById('emptyPendaftar');
+    if (!allData.length) { tbody.innerHTML=''; empty.style.display='block'; document.getElementById('pagination').innerHTML=''; return; }
+    empty.style.display='none';
+    tbody.innerHTML = allData.map(d=>`
+      <tr>
+        <td><strong>${d.nomor_daftar}</strong></td>
+        <td>${d.nama_lengkap}</td>
+        <td>${d.jenis_kelamin==='L'?'L':'P'}</td>
+        <td>${d.kelas_tujuan}</td>
+        <td>${d.nomor_hp_ortu}</td>
+        <td><div class="dok-chip">
+          <span class="${d.ada_kk?'dok-ada':'dok-none'}">${d.ada_kk?'✅ KK':'— KK'}</span>
+          <span class="${d.ada_akta?'dok-ada':'dok-none'}">${d.ada_akta?'✅ Akta':'— Akta'}</span>
+        </div></td>
+        <td>${new Date(d.tanggal_daftar).toLocaleDateString('id-ID')}</td>
+        <td>${badgeStatus(d.status)}</td>
+        <td><div class="act-btns">
+          <button class="abt abt-view" onclick="viewDetail(${d.id})">👁</button>
+          ${d.status==='Menunggu Verifikasi'?`
+            <button class="abt abt-acc" onclick="setStatus(${d.id},'Diterima')">✅</button>
+            <button class="abt abt-rej" onclick="setStatus(${d.id},'Ditolak')">❌</button>`:''}
+          <button class="abt abt-del" onclick="hapusPendaftar(${d.id},'${d.nama_lengkap}')">🗑</button>
+        </div></td>
+      </tr>`).join('');
+    // Pagination
+    const total = data.total || 0;
+    const pages = data.totalPages || 1;
+    document.getElementById('pagination').innerHTML = `
+      <span>Menampilkan ${allData.length} dari ${total} pendaftar</span>
+      <div style="display:flex;gap:6px;">
+        ${page>1?`<button class="btn-sm btn-green" onclick="loadPendaftar(${page-1})">← Prev</button>`:''}
+        <span style="padding:8px 12px;background:var(--white);border-radius:6px;border:1px solid #e2e8f0;">${page} / ${pages}</span>
+        ${page<pages?`<button class="btn-sm btn-green" onclick="loadPendaftar(${page+1})">Next →</button>`:''}
+      </div>`;
+  } catch(e) { showToast('Gagal memuat data','err'); }
+}
+function filterPendaftar() { loadPendaftar(1); }
+function badgeStatus(s) {
+  const cls = s==='Diterima'?'b-diterima':s==='Ditolak'?'b-ditolak':'b-tunggu';
+  return `<span class="badge ${cls}">${s}</span>`;
+}
+async function setStatus(id, status) {
+  const catatan = status==='Ditolak' ? prompt('Catatan untuk penolakan (opsional):') : null;
+  const {data} = await apiFetch('/pendaftaran/'+id+'/status', { method:'PATCH', body:JSON.stringify({status, catatan_admin:catatan||''}) });
+  if (data.success) { showToast('Status diubah: '+status); loadPendaftar(currentPage); loadStats(); }
+  else showToast(data.message,'err');
+}
+async function hapusPendaftar(id, nama) {
+  if (!confirm(`Hapus data pendaftar "${nama}"? Tindakan ini tidak dapat dibatalkan.`)) return;
+  const {data} = await apiFetch('/pendaftaran/'+id, {method:'DELETE'});
+  if (data.success) { showToast('Data dihapus'); loadPendaftar(currentPage); loadStats(); }
+  else showToast(data.message,'err');
+}
+async function viewDetail(id) {
+  try {
+    const {data} = await apiFetch('/pendaftaran/'+id);
+    if (!data.success) { showToast('Data tidak ditemukan','err'); return; }
+    const d = data.data;
+    const fileRow = (label, path) => path
+      ? `<div class="dr"><div class="dl">${label}</div><div class="dv"><a class="file-link" href="/${path}" target="_blank">📄 Lihat Dokumen</a></div></div>`
+      : `<div class="dr"><div class="dl">${label}</div><div class="dv" style="color:var(--gray);">Tidak diupload</div></div>`;
+    document.getElementById('modalTitle').textContent = 'Detail: '+d.nama_lengkap;
+    document.getElementById('modalBody').innerHTML = `
+      <div class="dr"><div class="dl modal-sect">Data Siswa</div></div>
+      <div class="dr"><div class="dl">No. Daftar</div><div class="dv">${d.nomor_daftar}</div></div>
+      <div class="dr"><div class="dl">Nama Lengkap</div><div class="dv">${d.nama_lengkap}</div></div>
+      <div class="dr"><div class="dl">NIK</div><div class="dv">${d.nik||'-'}</div></div>
+      <div class="dr"><div class="dl">Tempat, Tgl. Lahir</div><div class="dv">${d.tempat_lahir}, ${new Date(d.tanggal_lahir).toLocaleDateString('id-ID')}</div></div>
+      <div class="dr"><div class="dl">Jenis Kelamin</div><div class="dv">${d.jenis_kelamin==='L'?'Laki-laki':'Perempuan'}</div></div>
+      <div class="dr"><div class="dl">Agama</div><div class="dv">${d.agama}</div></div>
+      <div class="dr"><div class="dl">Alamat</div><div class="dv">${d.alamat}</div></div>
+      <div class="dr"><div class="dl">No. HP</div><div class="dv">${d.nomor_hp}</div></div>
+      <div class="dr"><div class="dl">Email</div><div class="dv">${d.email||'-'}</div></div>
+      <div class="dr"><div class="dl">Kelas Tujuan</div><div class="dv">${d.kelas_tujuan}</div></div>
+      <div class="dr"><div class="dl">Asal TK/RA</div><div class="dv">${d.asal_sekolah||'-'}</div></div>
+      <div class="dr"><div class="dl modal-sect">Orang Tua / Wali</div></div>
+      <div class="dr"><div class="dl">Nama Ayah</div><div class="dv">${d.nama_ayah||'-'}</div></div>
+      <div class="dr"><div class="dl">Nama Ibu</div><div class="dv">${d.nama_ibu||'-'}</div></div>
+      <div class="dr"><div class="dl">Nama Wali</div><div class="dv">${d.nama_wali||'-'}</div></div>
+      <div class="dr"><div class="dl">HP Ortu/Wali</div><div class="dv">${d.nomor_hp_ortu}</div></div>
+      <div class="dr"><div class="dl">Pekerjaan Ayah</div><div class="dv">${d.pekerjaan_ayah||'-'}</div></div>
+      <div class="dr"><div class="dl">Pekerjaan Ibu</div><div class="dv">${d.pekerjaan_ibu||'-'}</div></div>
+      <div class="dr"><div class="dl modal-sect">Dokumen</div></div>
+      ${fileRow('Kartu Keluarga', d.file_kk)}
+      ${fileRow('Akta Kelahiran', d.file_akta)}
+      ${fileRow('Pas Foto', d.file_foto)}
+      <div class="dr"><div class="dl modal-sect">Status</div></div>
+      <div class="dr"><div class="dl">Status</div><div class="dv">${badgeStatus(d.status)}</div></div>
+      <div class="dr"><div class="dl">Tanggal Daftar</div><div class="dv">${new Date(d.tanggal_daftar).toLocaleString('id-ID')}</div></div>
+      ${d.catatan_admin?`<div class="dr"><div class="dl">Catatan Admin</div><div class="dv">${d.catatan_admin}</div></div>`:''}`;
+    document.getElementById('modalFoot').innerHTML = d.status==='Menunggu Verifikasi'
+      ? `<button class="btn-sm abt-acc" style="padding:10px 18px;font-size:13px;" onclick="setStatus(${d.id},'Diterima');closeModal()">✅ Terima Siswa</button>
+         <button class="btn-sm abt-rej" style="padding:10px 18px;font-size:13px;" onclick="setStatus(${d.id},'Ditolak');closeModal()">❌ Tolak</button>`
+      : `<span style="font-size:13px;color:var(--gray);">Status: <strong>${d.status}</strong></span>`;
+    document.getElementById('modalOv').classList.add('open');
+  } catch(e) { showToast('Gagal memuat detail','err'); }
+}
+function closeModal(e) { if (!e || e.target===document.getElementById('modalOv')) document.getElementById('modalOv').classList.remove('open'); }
+
+function exportCSV() {
+  if (!allData.length) { showToast('Tidak ada data untuk diexport','err'); return; }
+  const h = ['No.Daftar','Nama','JK','Agama','HP','HP Ortu','Kelas','Asal TK','Status','Tanggal'];
+  const rows = allData.map(d=>[d.nomor_daftar,d.nama_lengkap,d.jenis_kelamin,d.agama,d.nomor_hp,d.nomor_hp_ortu,d.kelas_tujuan,d.asal_sekolah||'',d.status,new Date(d.tanggal_daftar).toLocaleDateString('id-ID')]);
+  const csv = [h,...rows].map(r=>r.map(x=>'"'+(x||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a = document.createElement('a'); a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
+  a.download='ppdb-taalamul-huda-'+new Date().getFullYear()+'.csv'; a.click();
+}
+
+// ── BERITA ────────────────────────────────────────────────────
+async function addBerita() {
+  const j=document.getElementById('b-judul').value.trim();
+  const k=document.getElementById('b-kat').value;
+  const c=document.getElementById('b-konten').value.trim();
+  const e=document.getElementById('b-emoji').value.trim()||'📰';
+  if(!j||!c){showToast('Judul dan konten wajib diisi','err');return;}
+  const {data}=await apiFetch('/konten/berita',{method:'POST',body:JSON.stringify({judul:j,kategori:k,konten:c,emoji:e})});
+  if(data.success){showToast('Berita ditambahkan');['b-judul','b-konten','b-emoji'].forEach(id=>document.getElementById(id).value='');loadBerita();}
+  else showToast(data.message,'err');
+}
+async function loadBerita() {
+  const {data}=await apiFetch('/konten/berita/all');
+  const el=document.getElementById('berita-list');
+  if(!data.success||!data.data.length){el.innerHTML='<div class="empty-state"><div>📰</div><p>Belum ada berita.</p></div>';return;}
+  el.innerHTML=data.data.map(d=>`
+    <div class="item-entry">
+      <div><div class="ie-title">${d.emoji} ${d.judul}</div><div class="ie-sub">${d.kategori} · ${new Date(d.created_at).toLocaleDateString('id-ID')} · ${d.aktif?'<span style="color:var(--success)">Aktif</span>':'<span style="color:var(--gray)">Nonaktif</span>'}</div></div>
+      <div style="display:flex;gap:6px;">
+        <button class="btn-sm" style="background:#eff6ff;color:#1d4ed8;" onclick="toggleBerita(${d.id})">👁 Toggle</button>
+        <button class="ie-del" onclick="hapusBerita(${d.id})">Hapus</button>
+      </div>
+    </div>`).join('');
+}
+async function toggleBerita(id){const {data}=await apiFetch('/konten/berita/'+id+'/toggle',{method:'PATCH'});if(data.success){showToast('Status diubah');loadBerita();}else showToast(data.message,'err');}
+async function hapusBerita(id){if(!confirm('Hapus berita ini?'))return;const {data}=await apiFetch('/konten/berita/'+id,{method:'DELETE'});if(data.success){showToast('Berita dihapus');loadBerita();}else showToast(data.message,'err');}
+
+// ── TESTIMONI ─────────────────────────────────────────────────
+async function addTestimoni(){
+  const n=document.getElementById('t-nama').value.trim();
+  const p=document.getElementById('t-peran').value.trim();
+  const t=document.getElementById('t-teks').value.trim();
+  const b=document.getElementById('t-bintang').value;
+  if(!n||!t){showToast('Nama dan isi wajib diisi','err');return;}
+  const {data}=await apiFetch('/konten/testimoni',{method:'POST',body:JSON.stringify({nama:n,peran:p,teks:t,bintang:parseInt(b)})});
+  if(data.success){showToast('Testimoni ditambahkan');['t-nama','t-peran','t-teks'].forEach(id=>document.getElementById(id).value='');loadTestimoni();}
+  else showToast(data.message,'err');
+}
+async function loadTestimoni(){
+  const {data}=await apiFetch('/konten/testimoni/all');
+  const el=document.getElementById('testi-list');
+  if(!data.success||!data.data.length){el.innerHTML='<div class="empty-state"><div>💬</div><p>Belum ada testimoni.</p></div>';return;}
+  el.innerHTML=data.data.map(d=>`
+    <div class="item-entry">
+      <div><div class="ie-title">${'⭐'.repeat(d.bintang)} ${d.nama}</div><div class="ie-sub">${d.peran}</div><div style="font-size:12px;color:#334155;margin-top:5px;font-style:italic;">"${d.teks.substring(0,100)}..."</div></div>
+      <button class="ie-del" onclick="hapusTesti(${d.id})">Hapus</button>
+    </div>`).join('');
+}
+async function hapusTesti(id){if(!confirm('Hapus testimoni?'))return;const {data}=await apiFetch('/konten/testimoni/'+id,{method:'DELETE'});if(data.success){showToast('Testimoni dihapus');loadTestimoni();}else showToast(data.message,'err');}
+
+// ── GALERI ────────────────────────────────────────────────────
+async function addGaleri(){
+  const j=document.getElementById('g-judul').value.trim();
+  const e=document.getElementById('g-emoji').value.trim()||'🖼️';
+  const k=document.getElementById('g-kat').value.trim();
+  if(!j){showToast('Judul wajib diisi','err');return;}
+  const {data}=await apiFetch('/konten/galeri',{method:'POST',body:JSON.stringify({judul:j,emoji:e,kategori:k})});
+  if(data.success){showToast('Item galeri ditambahkan');['g-judul','g-emoji','g-kat'].forEach(id=>document.getElementById(id).value='');loadGaleri();}
+  else showToast(data.message,'err');
+}
+async function loadGaleri(){
+  const {data}=await apiFetch('/konten/galeri/all');
+  const el=document.getElementById('galeri-list');
+  if(!data.success||!data.data.length){el.innerHTML='<div class="empty-state"><div>🖼️</div><p>Belum ada item galeri.</p></div>';return;}
+  el.innerHTML=data.data.map(d=>`
+    <div class="item-entry">
+      <div><div class="ie-title">${d.emoji} ${d.judul}</div><div class="ie-sub">${d.kategori}</div></div>
+      <button class="ie-del" onclick="hapusGaleri(${d.id})">Hapus</button>
+    </div>`).join('');
+}
+async function hapusGaleri(id){if(!confirm('Hapus item galeri?'))return;const {data}=await apiFetch('/konten/galeri/'+id,{method:'DELETE'});if(data.success){showToast('Dihapus');loadGaleri();}else showToast(data.message,'err');}
+
+// ── PROFIL ────────────────────────────────────────────────────
+async function loadProfil(){
+  const {data}=await apiFetch('/konten/profil');
+  if(!data.success)return;
+  const p=data.data;
+  document.getElementById('p-nama').value   = p.nama||'';
+  document.getElementById('p-tagline').value= p.tagline||'';
+  document.getElementById('p-visi').value   = p.visi||'';
+  document.getElementById('p-misi').value   = p.misi||'';
+  document.getElementById('p-wa').value     = p.wa_number||'';
+  document.getElementById('p-kepala').value = p.kepala||'';
+  document.getElementById('p-alamat').value = p.alamat||'';
+  document.getElementById('p-telp').value   = p.telepon||'';
+  document.getElementById('p-email').value  = p.email||'';
+}
+async function saveProfil(){
+  const body={
+    nama:     document.getElementById('p-nama').value,
+    tagline:  document.getElementById('p-tagline').value,
+    visi:     document.getElementById('p-visi').value,
+    misi:     document.getElementById('p-misi').value,
+    wa_number:document.getElementById('p-wa').value,
+    kepala:   document.getElementById('p-kepala').value,
+    alamat:   document.getElementById('p-alamat').value,
+    telepon:  document.getElementById('p-telp').value,
+    email:    document.getElementById('p-email').value,
+  };
+  const {data}=await apiFetch('/konten/profil',{method:'PUT',body:JSON.stringify(body)});
+  if(data.success) showToast('Profil sekolah berhasil disimpan!');
+  else showToast(data.message,'err');
+}
+
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast'+(type==='err'?' toast-err':'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>

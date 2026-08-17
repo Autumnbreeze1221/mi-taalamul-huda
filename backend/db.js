@@ -8,6 +8,7 @@ const pool = new Pool({
   database: process.env.DB_NAME     || 'mi_taalamul_huda',
   user:     process.env.DB_USER     || 'postgres',
   password: process.env.DB_PASSWORD || '',
+  ssl:      process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   max: 10,                  // max koneksi dalam pool
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,

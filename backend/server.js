@@ -53,6 +53,29 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString(), app: "MI Ta'alamul Huda API" });
 });
 
+// ─── DIAGNOSTIC API ───────────────────────────────────────────
+app.get('/api/test-db', async (req, res) => {
+  const pool = require('./db');
+  try {
+    const result = await pool.query('SELECT NOW() as now, current_database() as db, current_user as user');
+    res.json({ success: true, connection: "success", data: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ 
+      success: false, 
+      connection: "failed", 
+      error: err.message, 
+      code: err.code,
+      env: {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        database: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        node_env: process.env.NODE_ENV
+      }
+    });
+  }
+});
+
 // ─── 404 API ──────────────────────────────────────────────────
 app.use('/api/*', (req, res) => {
   res.status(404).json({ success: false, message: 'Endpoint tidak ditemukan.' });

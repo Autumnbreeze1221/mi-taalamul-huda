@@ -393,7 +393,10 @@ tr:hover td{background:#fafdfb;}
 <div class="toast" id="toast"></div>
 
 <script>
-const API   = 'http://localhost:3000/api';
+const API_HOST = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1') || window.location.origin.includes('5500')
+    ? 'http://localhost:3000'
+    : '';
+const API   = `${API_HOST}/api`;
 let TOKEN   = sessionStorage.getItem('adminToken');
 let ADMIN   = JSON.parse(sessionStorage.getItem('adminInfo') || '{}');
 let allData = [];

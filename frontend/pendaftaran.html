@@ -372,7 +372,10 @@ nav{background:var(--green-deep);padding:0 24px;position:sticky;top:0;z-index:99
 </div>
 
 <script>
-const API = 'http://localhost:3000/api';
+const API_HOST = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1') || window.location.origin.includes('5500')
+    ? 'http://localhost:3000'
+    : '';
+const API = `${API_HOST}/api`;
 let currentStep = 1;
 const MAX_SIZE = 5 * 1024 * 1024;
 

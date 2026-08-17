@@ -69,10 +69,15 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal server error.' });
 });
 
-// ─── START ────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n🕌 MI Ta'alamul Huda Server`);
-  console.log(`✅ Berjalan di http://localhost:${PORT}`);
-  console.log(`📋 API: http://localhost:${PORT}/api`);
-  console.log(`🌐 Frontend: http://localhost:${PORT}\n`);
-});
+// Export app untuk Vercel Serverless
+module.exports = app;
+
+// Jalankan server jika dijalankan secara lokal (bukan serverless)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`\n🕌 MI Ta'alamul Huda Server`);
+    console.log(`   » Port:    ${PORT}`);
+    console.log(`   » Env:     development`);
+    console.log(`   » DB Host: ${process.env.DB_HOST || 'localhost'}`);
+  });
+}

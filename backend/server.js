@@ -12,18 +12,15 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 // ─── MIDDLEWARE ───────────────────────────────────────────────
-const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:3000'];
-if (process.env.FRONTEND_URL) {
-  // Masukkan domain produksi Vercel / domain kustom
-  allowedOrigins.push(process.env.FRONTEND_URL);
-  // Kadang browser mengirim origin tanpa slash terakhir, pastikan bersih
-  allowedOrigins.push(process.env.FRONTEND_URL.replace(/\/$/, ""));
-}
-
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    
+    const isLocal = origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('5500');
+    const isVercel = origin.includes('vercel.app') || origin.includes('mi-taalamul-huda');
+    const isCustomDomain = process.env.FRONTEND_URL && origin.includes(process.env.FRONTEND_URL.replace(/https?:\/\//, ''));
+    
+    if (isLocal || isVercel || isCustomDomain) {
       return callback(null, true);
     }
     return callback(new Error('Blocked by CORS: ' + origin));

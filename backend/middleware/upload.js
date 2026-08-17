@@ -17,6 +17,8 @@ const storage = multer.diskStorage({
     if (file.fieldname === 'file_kk')   subdir = 'kk';
     if (file.fieldname === 'file_akta') subdir = 'akta';
     if (file.fieldname === 'file_foto') subdir = 'foto';
+    if (file.fieldname === 'gambar_cover') subdir = 'berita';
+    if (file.fieldname === 'gambar_galeri') subdir = 'galeri';
     const dest = path.join(UPLOAD_DIR, subdir);
     ensureDir(dest);
     cb(null, dest);
@@ -56,10 +58,13 @@ const uploadDokumen = upload.fields([
   { name: 'file_foto', maxCount: 1 },
 ]);
 
+const uploadBeritaCover = upload.single('gambar_cover');
+const uploadGaleriGambar = upload.single('gambar_galeri');
+
 // Helper: ambil path relatif untuk disimpan ke DB
 const getRelativePath = (file) => {
   if (!file) return null;
   return path.relative(path.join(__dirname, '..'), file.path).replace(/\\/g, '/');
 };
 
-module.exports = { uploadDokumen, getRelativePath, UPLOAD_DIR };
+module.exports = { uploadDokumen, uploadBeritaCover, uploadGaleriGambar, getRelativePath, UPLOAD_DIR };

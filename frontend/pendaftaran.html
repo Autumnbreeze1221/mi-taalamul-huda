@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Pendaftaran Siswa Baru — MI Ta'alamul Huda</title>
+<title>Pendaftaran Siswa Baru — MIS Ta'alamul Huda</title>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png"/>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
@@ -154,6 +157,14 @@ nav{background:var(--green-deep);padding:0 24px;position:sticky;top:0;z-index:99
   .form-actions{flex-direction:column-reverse;gap:10px;}
   .btn-prev,.btn-next,.btn-submit{width:100%;justify-content:center;}
 }
+@media print {
+  body { background: #fff !important; color: #000 !important; font-family: 'Nunito', sans-serif !important; }
+  nav, .reg-hero, .form-wrap, .loading-overlay { display: none !important; }
+  .print-only { display: block !important; }
+}
+@media screen {
+  .print-only { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -164,7 +175,7 @@ nav{background:var(--green-deep);padding:0 24px;position:sticky;top:0;z-index:99
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">🕌 MI Ta'alamul Huda <span>PPDB 2025/2026</span></a>
+    <a href="index.html" class="nav-logo"><img src="img/logo-sekolah.png" alt="Logo MIS Ta'alamul Huda" style="width:36px;height:36px;object-fit:contain;"/> MIS Ta'alamul Huda <span>PPDB 2026/2027</span></a>
     <a href="index.html" class="nav-back">← Kembali</a>
   </div>
 </nav>
@@ -172,7 +183,7 @@ nav{background:var(--green-deep);padding:0 24px;position:sticky;top:0;z-index:99
 <div class="reg-hero">
   <div class="reg-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
   <h1>Pendaftaran <em>Siswa Baru</em></h1>
-  <p>PPDB MI Ta'alamul Huda Tahun Ajaran 2025/2026. Isi formulir dengan benar dan lengkap.</p>
+  <p>PPDB MIS Ta'alamul Huda Tahun Ajaran 2026/2027. Isi formulir dengan benar dan lengkap.</p>
   <div class="steps-bar">
     <div class="step-item"><div class="step-circle active" id="sc1">1</div><div class="step-label active" id="sl1">Data Anak</div></div>
     <div class="step-line" id="ln1"></div>
@@ -200,7 +211,7 @@ nav{background:var(--green-deep);padding:0 24px;position:sticky;top:0;z-index:99
         <div class="fg" id="fg-ttl"><label>Tempat Lahir <span class="req">*</span></label><input type="text" id="ttl" placeholder="Kota/Kabupaten"/><span class="err">Wajib diisi</span></div>
         <div class="fg" id="fg-tgl"><label>Tanggal Lahir <span class="req">*</span></label><input type="date" id="tgl"/><span class="err">Wajib diisi</span></div>
       </div>
-      <div class="form-row">
+      <div class="form-row full">
         <div class="fg" id="fg-jk">
           <label>Jenis Kelamin <span class="req">*</span></label>
           <div class="radio-group">
@@ -209,9 +220,6 @@ nav{background:var(--green-deep);padding:0 24px;position:sticky;top:0;z-index:99
           </div>
           <span class="err" id="err-jk">Wajib dipilih</span>
         </div>
-        <div class="fg" id="fg-agama"><label>Agama <span class="req">*</span></label>
-          <select id="agama"><option value="">-- Pilih Agama --</option><option>Islam</option><option>Kristen Protestan</option><option>Kristen Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select>
-          <span class="err">Wajib dipilih</span></div>
       </div>
       <div class="form-row full">
         <div class="fg" id="fg-alamat"><label>Alamat Lengkap <span class="req">*</span></label><textarea id="alamat" placeholder="Jl. Nama Jalan No. XX, RT/RW, Desa/Kel., Kecamatan, Kab./Kota"></textarea><span class="err">Wajib diisi</span></div>
@@ -445,7 +453,6 @@ function validate(step) {
     setErr('nama', !v('nama'));
     setErr('ttl', !v('ttl'));
     setErr('tgl', !v('tgl'));
-    setErr('agama', !v('agama'));
     setErr('alamat', !v('alamat'));
     setErr('hp', !v('hp'));
     const jk = document.querySelector('input[name="jk"]:checked');
@@ -478,7 +485,6 @@ function buildKonfirmasi() {
     <tr><td>NIK</td><td>${v('nik')||'-'}</td></tr>
     <tr><td>Tempat, Tgl. Lahir</td><td>${v('ttl')||'-'}, ${v('tgl')||'-'}</td></tr>
     <tr><td>Jenis Kelamin</td><td>${jk?( jk.value==='L'?'Laki-laki':'Perempuan'):'-'}</td></tr>
-    <tr><td>Agama</td><td>${v('agama')||'-'}</td></tr>
     <tr><td>Alamat</td><td>${v('alamat')||'-'}</td></tr>
     <tr><td>No. HP</td><td>${v('hp')||'-'}</td></tr>
     <tr><td>Email</td><td>${v('email')||'-'}</td></tr>
@@ -512,7 +518,7 @@ async function submitForm() {
   formData.append('tempat_lahir',   v('ttl'));
   formData.append('tanggal_lahir',  v('tgl'));
   formData.append('jenis_kelamin',  jk?.value || 'L');
-  formData.append('agama',          v('agama'));
+  formData.append('agama',          'Islam');
   formData.append('alamat',         v('alamat'));
   formData.append('nomor_hp',       v('hp'));
   formData.append('email',          v('email') || '');
@@ -556,6 +562,7 @@ async function submitForm() {
 
     // Sukses
     const nomor = data.data.nomor_daftar;
+    buildPrintReceipt(nomor);
     document.getElementById('step4').classList.remove('active');
     document.getElementById('nomorDaftar').textContent = nomor;
     document.getElementById('waLink').href =
@@ -578,8 +585,8 @@ async function getWANumber() {
   try {
     const r = await fetch(`${API}/konten/profil`);
     const d = await r.json();
-    return d.data?.wa_number || '6281234567890';
-  } catch { return '6281234567890'; }
+    return d.data?.wa_number || '6281808078464';
+  } catch { return '6281808078464'; }
 }
 
 function showAlert(msg, type) {
@@ -589,6 +596,93 @@ function showAlert(msg, type) {
   el.scrollIntoView({behavior:'smooth',block:'center'});
   setTimeout(()=>el.classList.remove('show'), 6000);
 }
+
+function buildPrintReceipt(nomor) {
+  const jk = document.querySelector('input[name="jk"]:checked')?.value === 'L' ? 'Laki-laki' : 'Perempuan';
+  const kelas = document.querySelector('input[name="kelas"]:checked')?.value || 'Kelas 1';
+  const tglIndo = new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'});
+  
+  document.getElementById('printReceipt').innerHTML = `
+    <div style="text-align: center; border-bottom: 3px double #000; padding-bottom: 12px; margin-bottom: 20px;">
+      <h2 style="font-family: 'Amiri', serif; margin: 0; font-size: 24px; color: #0d3320;">MI TA'ALAMUL HUDA</h2>
+      <h3 style="margin: 4px 0; font-size: 16px;">PANITIA PENERIMAAN PESERTA DIDIK BARU (PPDB)</h3>
+      <p style="margin: 0; font-size: 11px; font-style: italic;">Jl. Permata No. 19 Rt.006/005 Desa Curug, Kecamatan Gunungsindur. Telp: (0231) 456-7890</p>
+    </div>
+    
+    <h3 style="text-align: center; text-decoration: underline; margin-bottom: 20px; font-size: 16px;">KARTU BUKTI PENDAFTARAN PPDB</h3>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px;">
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; width: 35%; background: #f5f5f5;">Nomor Pendaftaran</td>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; font-size: 15px; color: #1e7a46;">${nomor}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Nama Lengkap</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('nama')}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">NIK</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('nik') || '-'}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Tempat, Tanggal Lahir</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('ttl')}, ${v('tgl') ? new Date(v('tgl')).toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}) : '-'}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Jenis Kelamin</td>
+        <td style="padding: 6px; border: 1px solid #000;">${jk}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Alamat</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('alamat')}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">No. HP Calon Siswa</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('hp')}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Nama Ayah / Wali</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('ayah')}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Nama Ibu</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('ibu')}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">No. HP Orang Tua</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('hportu')}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Kelas Tujuan</td>
+        <td style="padding: 6px; border: 1px solid #000;">${kelas}</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px; border: 1px solid #000; font-weight: bold; background: #f5f5f5;">Asal Sekolah TK/RA</td>
+        <td style="padding: 6px; border: 1px solid #000;">${v('asal') || '-'}</td>
+      </tr>
+    </table>
+    
+    <div style="display: flex; justify-content: space-between; margin-top: 30px; font-size: 13px;">
+      <div style="text-align: center; width: 40%;">
+        <p>Orang Tua / Wali Calon Siswa,</p>
+        <br><br><br>
+        <p style="text-decoration: underline; font-weight: bold;">( ${v('ayah') || v('ibu')} )</p>
+      </div>
+      <div style="text-align: center; width: 40%;">
+        <p>Kab. Makmur, ${tglIndo}</p>
+        <p>Panitia PPDB,</p>
+        <br><br><br>
+        <p style="text-decoration: underline; font-weight: bold;">( Panitia MIS Ta'alamul Huda )</p>
+      </div>
+    </div>
+    
+    <div style="margin-top: 30px; border-top: 1px dashed #666; padding-top: 8px; font-size: 10px; color: #555; text-align: center;">
+      * Kartu bukti pendaftaran ini sah dan dicetak secara otomatis dari sistem online PPDB MIS Ta'alamul Huda.
+    </div>
+  `;
+}
 </script>
+<!-- PRINT CONTAINER -->
+<div id="printReceipt" class="print-only"></div>
 </body>
 </html>

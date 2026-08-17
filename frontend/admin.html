@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Admin Panel — MI Ta'alamul Huda</title>
+<title>Admin Panel — MIS Ta'alamul Huda</title>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png"/>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{
   --green-deep:#0d3320;--green-dark:#1a5c38;--green-main:#1e7a46;
@@ -159,6 +163,22 @@ tr:hover td{background:#fafdfb;}
 .empty-state{text-align:center;padding:48px;color:var(--gray);}
 .empty-state div{font-size:48px;margin-bottom:12px;}
 
+/* LOGOUT MODAL */
+.logout-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
+.logout-overlay.open{display:flex;animation:fadeInOverlay .25s ease;}
+@keyframes fadeInOverlay{from{opacity:0}to{opacity:1}}
+.logout-modal{background:var(--white);border-radius:24px;padding:40px 36px 32px;max-width:380px;width:calc(100% - 40px);text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.25);animation:slideUp .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.logout-icon-wrap{width:72px;height:72px;background:linear-gradient(135deg,#dc2626,#ef4444);border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(220,38,38,.35);}
+.logout-icon-wrap svg{width:32px;height:32px;color:#fff;}
+.logout-modal h3{font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.logout-modal p{font-size:14px;color:var(--gray);line-height:1.65;margin-bottom:28px;}
+.logout-actions{display:flex;gap:10px;justify-content:center;}
+.btn-cancel-logout{flex:1;padding:11px 0;border-radius:12px;border:2px solid #e2e8f0;background:var(--white);color:var(--text);font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:.2s;}
+.btn-cancel-logout:hover{background:#f8fafc;border-color:#cbd5e1;}
+.btn-confirm-logout{flex:1;padding:11px 0;border-radius:12px;border:none;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:.2s;box-shadow:0 4px 14px rgba(220,38,38,.3);}
+.btn-confirm-logout:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(220,38,38,.45);}
+
 @media(max-width:768px){
   .stats-grid{grid-template-columns:1fr 1fr;}
   .sidebar{transform:translateX(-100%);}
@@ -173,9 +193,9 @@ tr:hover td{background:#fafdfb;}
   <div class="login-box">
     <div class="login-arabic">بِسْمِ اللهِ</div>
     <div class="login-logo">
-      <div class="login-icon">🕌</div>
+      <div class="login-icon"><img src="img/logo-sekolah.png" alt="Logo MIS Ta'alamul Huda" style="width:100%;height:100%;object-fit:contain;border-radius:16px;"/></div>
       <h2>Admin Panel</h2>
-      <p>MI Ta'alamul Huda</p>
+      <p>MIS Ta'alamul Huda</p>
     </div>
     <div class="login-err" id="loginErr"></div>
     <div class="lg"><label>Username</label><input type="text" id="loginUser" placeholder="admin" onkeydown="if(event.key==='Enter')doLogin()"/></div>
@@ -191,8 +211,8 @@ tr:hover td{background:#fafdfb;}
   <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="sb-logo">
-      <div class="sb-icon">🕌</div>
-      <div class="sb-name">MI Ta'alamul Huda</div>
+      <div class="sb-icon"><img src="img/logo-sekolah.png" alt="Logo MIS Ta'alamul Huda" style="width:44px;height:44px;object-fit:contain;"/></div>
+      <div class="sb-name">MIS Ta'alamul Huda</div>
       <div class="sb-sub">Admin Panel</div>
     </div>
     <nav class="sb-menu">
@@ -211,7 +231,7 @@ tr:hover td{background:#fafdfb;}
     <div class="sb-user">
       <div class="sb-uname" id="sbUname">Administrator</div>
       <div class="sb-urole">Admin</div>
-      <button class="btn-logout" onclick="doLogout()">🚪 Keluar</button>
+      <button class="btn-logout" onclick="doLogout(false)">🚪 Keluar</button>
     </div>
   </div>
 
@@ -278,7 +298,8 @@ tr:hover td{background:#fafdfb;}
             <label>Judul Berita</label><input type="text" id="b-judul" placeholder="Judul berita..."/>
             <label>Kategori</label>
             <select id="b-kat"><option>Pengumuman</option><option>Prestasi</option><option>Kegiatan</option><option>Akademik</option></select>
-            <label>Emoji</label><input type="text" id="b-emoji" placeholder="📰" maxlength="5"/>
+            <label>Link Postingan Instagram</label><input type="text" id="b-ig" placeholder="https://www.instagram.com/p/..."/>
+            <label>Gambar Cover (jpg, png)</label><input type="file" id="b-cover" accept="image/*"/>
             <label>Konten / Ringkasan</label><textarea id="b-konten" placeholder="Isi berita..."></textarea>
             <button class="btn-add" onclick="addBerita()">+ Tambah Berita</button>
           </div>
@@ -308,7 +329,7 @@ tr:hover td{background:#fafdfb;}
           <div class="card-header"><div class="card-title">🖼️ Kelola Galeri</div></div>
           <div class="form-konten">
             <label>Judul / Nama Kegiatan</label><input type="text" id="g-judul" placeholder="Wisuda & Khataman..."/>
-            <label>Emoji</label><input type="text" id="g-emoji" placeholder="🎓" maxlength="5"/>
+            <label>Gambar Kegiatan (jpg, png)</label><input type="file" id="g-gambar" accept="image/*"/>
             <label>Kategori</label><input type="text" id="g-kat" placeholder="Wisuda, Olahraga, Seni..."/>
             <button class="btn-add" onclick="addGaleri()">+ Tambah Item</button>
           </div>
@@ -330,6 +351,7 @@ tr:hover td{background:#fafdfb;}
             <label>Alamat</label><textarea id="p-alamat" style="min-height:60px;"></textarea>
             <label>Telepon</label><input type="text" id="p-telp"/>
             <label>Email</label><input type="email" id="p-email"/>
+            <label>Link Instagram Sekolah (https://instagram.com/username)</label><input type="text" id="p-ig"/>
             <button class="btn-add" onclick="saveProfil()">💾 Simpan Perubahan</button>
           </div>
         </div>
@@ -345,6 +367,25 @@ tr:hover td{background:#fafdfb;}
     <div class="modal-head"><h3 id="modalTitle">Detail Pendaftar</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="modal-body" id="modalBody"></div>
     <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<!-- LOGOUT MODAL -->
+<div class="logout-overlay" id="logoutOverlay">
+  <div class="logout-modal">
+    <div class="logout-icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    </div>
+    <h3>Keluar dari Admin Panel?</h3>
+    <p>Sesi Anda akan diakhiri dan Anda perlu masuk kembali untuk mengakses panel admin.</p>
+    <div class="logout-actions">
+      <button class="btn-cancel-logout" onclick="cancelLogout()">Batal</button>
+      <button class="btn-confirm-logout" onclick="confirmLogout()">Ya, Keluar</button>
+    </div>
   </div>
 </div>
 
@@ -382,7 +423,21 @@ async function doLogin() {
   }
 }
 function showLoginErr(msg) { const el=document.getElementById('loginErr'); el.textContent=msg; el.style.display='block'; }
-function doLogout() { sessionStorage.clear(); location.reload(); }
+function doLogout(force = false) {
+  if (force) {
+    sessionStorage.clear();
+    location.reload();
+    return;
+  }
+  document.getElementById('logoutOverlay').classList.add('open');
+}
+function cancelLogout() {
+  document.getElementById('logoutOverlay').classList.remove('open');
+}
+function confirmLogout() {
+  sessionStorage.clear();
+  location.reload();
+}
 
 function bootAdmin() {
   document.getElementById('loginPage').style.display='none';
@@ -415,7 +470,7 @@ async function apiFetch(url, opts={}) {
   if (!(opts.body instanceof FormData)) headers['Content-Type'] = 'application/json';
   const res  = await fetch(API+url, { ...opts, headers });
   const data = await res.json();
-  if (res.status === 401) { doLogout(); }
+  if (res.status === 401) { doLogout(true); }
   return { res, data };
 }
 
@@ -520,7 +575,7 @@ async function viewDetail(id) {
     if (!data.success) { showToast('Data tidak ditemukan','err'); return; }
     const d = data.data;
     const fileRow = (label, path) => path
-      ? `<div class="dr"><div class="dl">${label}</div><div class="dv"><a class="file-link" href="/${path}" target="_blank">📄 Lihat Dokumen</a></div></div>`
+      ? `<div class="dr"><div class="dl">${label}</div><div class="dv"><a class="file-link" href="/${path}?token=${TOKEN}" target="_blank">📄 Lihat Dokumen</a></div></div>`
       : `<div class="dr"><div class="dl">${label}</div><div class="dv" style="color:var(--gray);">Tidak diupload</div></div>`;
     document.getElementById('modalTitle').textContent = 'Detail: '+d.nama_lengkap;
     document.getElementById('modalBody').innerHTML = `
@@ -562,11 +617,53 @@ function closeModal(e) { if (!e || e.target===document.getElementById('modalOv')
 
 function exportCSV() {
   if (!allData.length) { showToast('Tidak ada data untuk diexport','err'); return; }
-  const h = ['No.Daftar','Nama','JK','Agama','HP','HP Ortu','Kelas','Asal TK','Status','Tanggal'];
-  const rows = allData.map(d=>[d.nomor_daftar,d.nama_lengkap,d.jenis_kelamin,d.agama,d.nomor_hp,d.nomor_hp_ortu,d.kelas_tujuan,d.asal_sekolah||'',d.status,new Date(d.tanggal_daftar).toLocaleDateString('id-ID')]);
-  const csv = [h,...rows].map(r=>r.map(x=>'"'+(x||'').toString().replace(/"/g,'""')+'"').join(',')).join('\n');
-  const a = document.createElement('a'); a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
-  a.download='ppdb-taalamul-huda-'+new Date().getFullYear()+'.csv'; a.click();
+
+  // Header rows with title & metadata
+  const tahun = new Date().getFullYear();
+  const tglExport = new Date().toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'});
+
+  const wsData = [
+    ["DATA PENDAFTARAN SISWA BARU — MI TA'ALAMUL HUDA"],
+    [`Tahun Ajaran ${tahun}/${tahun+1}`],
+    [`Dicetak: ${tglExport}`, '', '', '', '', '', '', '', '', `Total: ${allData.length} pendaftar`],
+    [],
+    ['No.', 'Nomor Daftar', 'Nama Lengkap', 'Jenis Kelamin', 'Agama', 'No. HP Siswa', 'No. HP Orang Tua', 'Kelas Tujuan', 'Asal TK/RA', 'Status', 'Tanggal Daftar'],
+  ];
+
+  allData.forEach((d, i) => {
+    const jk = d.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan';
+    wsData.push([
+      i + 1,
+      d.nomor_daftar,
+      d.nama_lengkap,
+      jk,
+      d.agama,
+      d.nomor_hp,
+      d.nomor_hp_ortu,
+      d.kelas_tujuan,
+      d.asal_sekolah || '-',
+      d.status,
+      new Date(d.tanggal_daftar).toLocaleDateString('id-ID'),
+    ]);
+  });
+
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+  // Column widths
+  ws['!cols'] = [
+    {wch:5},{wch:16},{wch:28},{wch:14},{wch:12},{wch:16},{wch:18},{wch:12},{wch:20},{wch:22},{wch:16}
+  ];
+
+  // Merge title row across columns
+  ws['!merges'] = [
+    {s:{r:0,c:0}, e:{r:0,c:10}},
+    {s:{r:1,c:0}, e:{r:1,c:10}},
+  ];
+
+  XLSX.utils.book_append_sheet(wb, ws, 'Data Pendaftar');
+  XLSX.writeFile(wb, `ppdb-taalamul-huda-${tahun}.xlsx`);
+  showToast('File Excel berhasil diunduh ✓');
 }
 
 // ── BERITA ────────────────────────────────────────────────────
@@ -574,10 +671,28 @@ async function addBerita() {
   const j=document.getElementById('b-judul').value.trim();
   const k=document.getElementById('b-kat').value;
   const c=document.getElementById('b-konten').value.trim();
-  const e=document.getElementById('b-emoji').value.trim()||'📰';
+  const ig=document.getElementById('b-ig').value.trim();
+  const coverEl=document.getElementById('b-cover');
   if(!j||!c){showToast('Judul dan konten wajib diisi','err');return;}
-  const {data}=await apiFetch('/konten/berita',{method:'POST',body:JSON.stringify({judul:j,kategori:k,konten:c,emoji:e})});
-  if(data.success){showToast('Berita ditambahkan');['b-judul','b-konten','b-emoji'].forEach(id=>document.getElementById(id).value='');loadBerita();}
+
+  const formData = new FormData();
+  formData.append('judul', j);
+  formData.append('kategori', k);
+  formData.append('konten', c);
+  formData.append('instagram_url', ig);
+  if (coverEl.files[0]) {
+    formData.append('gambar_cover', coverEl.files[0]);
+  }
+
+  const {data}=await apiFetch('/konten/berita',{method:'POST',body:formData});
+  if(data.success){
+    showToast('Berita ditambahkan');
+    document.getElementById('b-judul').value='';
+    document.getElementById('b-konten').value='';
+    document.getElementById('b-ig').value='';
+    document.getElementById('b-cover').value='';
+    loadBerita();
+  }
   else showToast(data.message,'err');
 }
 async function loadBerita() {
@@ -586,8 +701,17 @@ async function loadBerita() {
   if(!data.success||!data.data.length){el.innerHTML='<div class="empty-state"><div>📰</div><p>Belum ada berita.</p></div>';return;}
   el.innerHTML=data.data.map(d=>`
     <div class="item-entry">
-      <div><div class="ie-title">${d.emoji} ${d.judul}</div><div class="ie-sub">${d.kategori} · ${new Date(d.created_at).toLocaleDateString('id-ID')} · ${d.aktif?'<span style="color:var(--success)">Aktif</span>':'<span style="color:var(--gray)">Nonaktif</span>'}</div></div>
-      <div style="display:flex;gap:6px;">
+      <div style="display:flex; gap: 12px; align-items: center; width: 100%;">
+        ${d.gambar_cover ? `<img src="/${d.gambar_cover}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />` : `<div style="width: 50px; height: 50px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 20px;">📰</div>`}
+        <div style="flex: 1;">
+          <div class="ie-title">${d.judul}</div>
+          <div class="ie-sub">
+            ${d.kategori} · ${new Date(d.created_at).toLocaleDateString('id-ID')} · ${d.aktif?'<span style="color:var(--success)">Aktif</span>':'<span style="color:var(--gray)">Nonaktif</span>'}
+            ${d.instagram_url ? `<br><a href="${d.instagram_url}" target="_blank" style="color: var(--green-main); text-decoration: none; font-size: 11px;">🔗 Lihat di Instagram</a>` : ''}
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px; align-self: center;">
         <button class="btn-sm" style="background:#eff6ff;color:#1d4ed8;" onclick="toggleBerita(${d.id})">👁 Toggle</button>
         <button class="ie-del" onclick="hapusBerita(${d.id})">Hapus</button>
       </div>
@@ -622,11 +746,24 @@ async function hapusTesti(id){if(!confirm('Hapus testimoni?'))return;const {data
 // ── GALERI ────────────────────────────────────────────────────
 async function addGaleri(){
   const j=document.getElementById('g-judul').value.trim();
-  const e=document.getElementById('g-emoji').value.trim()||'🖼️';
   const k=document.getElementById('g-kat').value.trim();
+  const fileEl=document.getElementById('g-gambar');
   if(!j){showToast('Judul wajib diisi','err');return;}
-  const {data}=await apiFetch('/konten/galeri',{method:'POST',body:JSON.stringify({judul:j,emoji:e,kategori:k})});
-  if(data.success){showToast('Item galeri ditambahkan');['g-judul','g-emoji','g-kat'].forEach(id=>document.getElementById(id).value='');loadGaleri();}
+  if(!fileEl.files[0]){showToast('Gambar wajib diunggah','err');return;}
+
+  const formData = new FormData();
+  formData.append('judul', j);
+  formData.append('kategori', k || 'Umum');
+  formData.append('gambar_galeri', fileEl.files[0]);
+
+  const {data}=await apiFetch('/konten/galeri',{method:'POST',body:formData});
+  if(data.success){
+    showToast('Item galeri ditambahkan');
+    document.getElementById('g-judul').value='';
+    document.getElementById('g-kat').value='';
+    document.getElementById('g-gambar').value='';
+    loadGaleri();
+  }
   else showToast(data.message,'err');
 }
 async function loadGaleri(){
@@ -635,8 +772,14 @@ async function loadGaleri(){
   if(!data.success||!data.data.length){el.innerHTML='<div class="empty-state"><div>🖼️</div><p>Belum ada item galeri.</p></div>';return;}
   el.innerHTML=data.data.map(d=>`
     <div class="item-entry">
-      <div><div class="ie-title">${d.emoji} ${d.judul}</div><div class="ie-sub">${d.kategori}</div></div>
-      <button class="ie-del" onclick="hapusGaleri(${d.id})">Hapus</button>
+      <div style="display:flex; gap: 12px; align-items: center; width: 100%;">
+        ${d.gambar ? `<img src="/${d.gambar}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" />` : `<div style="width: 50px; height: 50px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 20px;">🖼️</div>`}
+        <div style="flex: 1;">
+          <div class="ie-title">${d.judul}</div>
+          <div class="ie-sub">${d.kategori}</div>
+        </div>
+      </div>
+      <button class="ie-del" onclick="hapusGaleri(${d.id})" style="align-self: center;">Hapus</button>
     </div>`).join('');
 }
 async function hapusGaleri(id){if(!confirm('Hapus item galeri?'))return;const {data}=await apiFetch('/konten/galeri/'+id,{method:'DELETE'});if(data.success){showToast('Dihapus');loadGaleri();}else showToast(data.message,'err');}
@@ -655,6 +798,7 @@ async function loadProfil(){
   document.getElementById('p-alamat').value = p.alamat||'';
   document.getElementById('p-telp').value   = p.telepon||'';
   document.getElementById('p-email').value  = p.email||'';
+  document.getElementById('p-ig').value     = p.instagram_url||'';
 }
 async function saveProfil(){
   const body={
@@ -667,6 +811,7 @@ async function saveProfil(){
     alamat:   document.getElementById('p-alamat').value,
     telepon:  document.getElementById('p-telp').value,
     email:    document.getElementById('p-email').value,
+    instagram_url: document.getElementById('p-ig').value,
   };
   const {data}=await apiFetch('/konten/profil',{method:'PUT',body:JSON.stringify(body)});
   if(data.success) showToast('Profil sekolah berhasil disimpan!');

@@ -19,11 +19,12 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve file upload (dokumen) — dilindungi, hanya admin
-// Untuk production: gunakan nginx atau signed URL
-app.use('/uploads', require('./middleware/auth'), express.static(
-  path.join(__dirname, process.env.UPLOAD_DIR || 'uploads')
-));
+// Serve file upload (dokumen)
+const uploadDir = process.env.UPLOAD_DIR || 'uploads';
+app.use('/uploads/berita', express.static(path.join(__dirname, uploadDir, 'berita')));
+app.use('/uploads/galeri', express.static(path.join(__dirname, uploadDir, 'galeri')));
+app.use('/uploads/misc', express.static(path.join(__dirname, uploadDir, 'misc')));
+app.use('/uploads', require('./middleware/auth'), express.static(path.join(__dirname, uploadDir)));
 
 // Serve frontend HTML dari folder frontend/
 app.use(express.static(path.join(__dirname, '..', 'frontend')));

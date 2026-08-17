@@ -10,7 +10,7 @@
 -- ─── ENUM TYPES ──────────────────────────────────────────────
 CREATE TYPE jenis_kelamin_enum AS ENUM ('L', 'P');
 CREATE TYPE status_ppdb_enum   AS ENUM ('Menunggu Verifikasi', 'Diterima', 'Ditolak');
-CREATE TYPE agama_enum         AS ENUM ('Islam', 'Kristen Protestan', 'Kristen Katolik', 'Hindu', 'Buddha', 'Konghucu');
+CREATE TYPE agama_enum         AS ENUM ('Islam');
 
 -- ─── TABEL: admin ────────────────────────────────────────────
 CREATE TABLE admin (
@@ -138,7 +138,7 @@ INSERT INTO profil_sekolah (kunci, nilai) VALUES
   ('kepala',      'Ustadz H. Mukhlis, S.Pd.I'),
   ('nsm',         '111233010001'),
   ('npsn',        '60721234'),
-  ('akreditasi',  'A');
+  ('akreditasi',  'B - Baik Sekali');
 
 -- ─── INDEXES ─────────────────────────────────────────────────
 CREATE INDEX idx_pendaftar_status        ON pendaftar(status);
@@ -149,4 +149,4 @@ CREATE INDEX idx_testimoni_aktif         ON testimoni(aktif);
 
 -- ─── SELESAI ─────────────────────────────────────────────────
 -- Setelah menjalankan ini, update password admin:
--- UPDATE admin SET password = '<bcrypt_hash>' WHERE username = 'admin';
+-- UPDATE admin SET password = '<bcrypt_hash>'Microsoft.QuickAction.BatterySaver WHERE username = 'admin';

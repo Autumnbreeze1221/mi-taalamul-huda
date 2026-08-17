@@ -3,350 +3,474 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>MI Ta'alamul Huda — Madrasah Ibtidaiyah</title>
+<title>MIS Ta'alamul Huda — Madrasah Ibtidaiyah</title>
+<meta name="description" content="MIS Ta'alamul Huda — Madrasah Ibtidaiyah Swasta berkualitas di Kab. Bogor. PPDB online, program tahfidz, seni, olahraga, dan teknologi dasar."/>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png"/>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Baloo+2:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --green-deep:   #0d3320;
-  --green-dark:   #1a5c38;
-  --green-main:   #1e7a46;
-  --green-mid:    #27a35a;
-  --green-light:  #4eba77;
-  --green-pale:   #e8f5ee;
-  --green-mist:   #f0f9f3;
-  --gold:         #c8930a;
-  --gold-light:   #f0b429;
-  --gold-pale:    #fef3cd;
-  --cream:        #fdfaf4;
-  --white:        #ffffff;
-  --text:         #1a2e1f;
-  --gray:         #5a7264;
-  --border:       #d4e8db;
+  --green-deep:  #0d3d22;
+  --green-dark:  #166534;
+  --green-main:  #16a34a;
+  --green-mid:   #22c55e;
+  --green-light: #4ade80;
+  --green-pale:  #dcfce7;
+  --green-mist:  #f0fdf4;
+  --gold:        #d97706;
+  --gold-light:  #fbbf24;
+  --gold-pale:   #fef3c7;
+  --cream:       #fffdf7;
+  --white:       #ffffff;
+  --text:        #14532d;
+  --gray:        #64748b;
+  --border:      #bbf7d0;
+  --sky:         #0ea5e9;
+  --sky-pale:    #e0f2fe;
+  --coral:       #f97316;
+  --coral-pale:  #ffedd5;
+  --sun:         #eab308;
+  --sun-pale:    #fefce8;
+  --grape:       #a855f7;
+  --grape-pale:  #f5f3ff;
+  --pink:        #ec4899;
+  --pink-pale:   #fdf2f8;
+  --teal:        #14b8a6;
+  --teal-pale:   #f0fdfa;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
 
-/* ── ISLAMIC PATTERN BG ── */
-.islamic-bg {
-  background-color: var(--green-deep);
-  background-image:
-    radial-gradient(circle at 25% 25%, rgba(39,163,90,.18) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(200,147,10,.12) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3Ccircle cx='30' cy='30' r='8' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");
-}
-
-/* ── NAV ── */
+/* ─── NAV ─────────────────────────────────────── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-  background: rgba(13,51,32,.96); backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(200,147,10,.25);
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(13,61,34,.97);backdrop-filter:blur(18px);
+  border-bottom:3px solid var(--gold-light);
 }
 .nav-inner {
-  max-width: 1200px; margin: auto; padding: 0 24px;
-  display: flex; align-items: center; justify-content: space-between; height: 70px;
+  max-width:1200px;margin:auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;height:72px;
 }
-.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.logo-mark {
-  width: 46px; height: 46px; background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  border-radius: 12px; display: flex; align-items: center; justify-content: center;
-  font-size: 22px; box-shadow: 0 4px 12px rgba(200,147,10,.35);
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-mark{
+  width:48px;height:48px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(251,191,36,.45);overflow:hidden;background:var(--white);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
 }
-.logo-text { line-height: 1.25; }
-.logo-text strong { display: block; color: var(--white); font-size: 16px; font-weight: 800; }
-.logo-text span { color: var(--gold-light); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
-.nav-links { display: flex; gap: 4px; align-items: center; }
-.nav-links a {
-  color: rgba(255,255,255,.75); text-decoration: none; font-size: 14px; font-weight: 600;
-  padding: 8px 14px; border-radius: 8px; transition: .2s;
+.logo-mark:hover{transform:rotate(-10deg) scale(1.15);}
+.logo-mark img{width:100%;height:100%;object-fit:contain;}
+.logo-text{line-height:1.25;}
+.logo-text strong{display:block;color:var(--white);font-size:16px;font-weight:900;font-family:'Baloo 2',sans-serif;}
+.logo-text span{color:var(--gold-light);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;}
+.nav-links{display:flex;gap:4px;align-items:center;}
+.nav-links a{
+  color:rgba(255,255,255,.82);text-decoration:none;font-size:14px;font-weight:700;
+  padding:8px 16px;border-radius:50px;transition:all .2s;
 }
-.nav-links a:hover { color: var(--gold-light); background: rgba(200,147,10,.12); }
-.nav-cta {
-  background: linear-gradient(135deg, var(--gold), var(--gold-light)) !important;
-  color: var(--green-deep) !important; font-weight: 800 !important; border-radius: 10px !important;
-  box-shadow: 0 4px 14px rgba(200,147,10,.3);
+.nav-links a:hover{color:var(--gold-light);background:rgba(251,191,36,.15);transform:translateY(-2px);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light)) !important;
+  color:var(--green-deep) !important;font-weight:900 !important;border-radius:50px !important;
+  box-shadow:0 4px 16px rgba(251,191,36,.45);
 }
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,147,10,.45) !important; }
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
-.hamburger span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
-.mob-menu {
-  display: none; position: fixed; top: 70px; left: 0; right: 0;
-  background: var(--green-deep); border-bottom: 2px solid var(--gold); padding: 16px 24px; z-index: 998;
+.nav-cta:hover{transform:translateY(-3px) scale(1.06) !important;box-shadow:0 10px 30px rgba(251,191,36,.65) !important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.hamburger span{width:24px;height:3px;background:var(--white);border-radius:3px;transition:.3s;}
+.mob-menu{
+  display:none;position:fixed;top:72px;left:0;right:0;
+  background:var(--green-deep);border-bottom:3px solid var(--gold-light);padding:16px 24px;z-index:998;
 }
-.mob-menu a { display: block; color: rgba(255,255,255,.8); text-decoration: none; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.07); font-size: 15px; font-weight: 600; }
-.mob-menu a:last-child { border: none; color: var(--gold-light); }
-.mob-menu.open { display: block; }
+.mob-menu a{display:block;color:rgba(255,255,255,.85);text-decoration:none;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;font-weight:700;}
+.mob-menu a:last-child{border:none;color:var(--gold-light);}
+.mob-menu.open{display:block;}
 
-/* ── HERO ── */
-#beranda {
-  min-height: 100vh;
-  background: var(--green-deep);
+/* ─── HERO ─────────────────────────────────────── */
+#beranda{
+  min-height:100vh;
+  background:linear-gradient(160deg,rgba(13,61,34,.93) 0%,rgba(20,83,45,.9) 38%,rgba(14,58,86,.85) 100%),url('img/sekolah-bg.jpg') no-repeat center center/cover;
+  display:flex;align-items:center;overflow:hidden;position:relative;
+}
+/* Colourful blobs */
+.blob{
+  position:absolute;border-radius:50%;filter:blur(72px);opacity:.22;pointer-events:none;
+  animation:blobFloat 9s ease-in-out infinite;
+}
+.blob-1{width:500px;height:500px;background:#22c55e;top:-150px;left:-150px;}
+.blob-2{width:380px;height:380px;background:#a855f7;bottom:-100px;right:5%;animation-delay:3s;animation-direction:reverse;}
+.blob-3{width:300px;height:300px;background:#fbbf24;top:35%;right:-120px;animation-delay:1.5s;}
+.blob-4{width:220px;height:220px;background:#f97316;top:60%;left:40%;animation-delay:4.5s;}
+@keyframes blobFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(22px,-28px) scale(1.06)}
+  66%{transform:translate(-18px,14px) scale(.95)}
+}
+/* Stars */
+.star-deco{position:absolute;opacity:.2;animation:twinkle 3s ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.6;transform:scale(1.5)}}
+/* Floating emoji */
+.fun-deco{
+  position:absolute;opacity:.9;
+  animation:float 4s ease-in-out infinite;
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,.3));
+}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-22px) rotate(7deg)}}
+/* Moon */
+.moon-deco{position:absolute;top:80px;right:80px;width:130px;height:130px;opacity:.06;}
+.moon-deco svg{width:100%;height:100%;}
+
+.hero-inner{
+  max-width:1200px;margin:auto;padding:110px 24px 80px;
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1;
+}
+.hero-arabic{
+  font-family:'Amiri',serif;color:var(--gold-light);
+  font-size:28px;margin-bottom:14px;direction:rtl;opacity:.9;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(251,191,36,.2);border:2px solid rgba(251,191,36,.5);
+  color:var(--gold-light);font-size:12px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;padding:8px 22px;border-radius:50px;margin-bottom:20px;
+  animation:badgePulse 3s ease-in-out infinite;
+}
+@keyframes badgePulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.55)}
+  50%{box-shadow:0 0 0 12px rgba(251,191,36,0)}
+}
+h1.hero-title{
+  font-size:clamp(32px,5vw,56px);line-height:1.1;color:var(--white);
+  margin-bottom:18px;font-weight:900;font-family:'Baloo 2','Nunito',sans-serif;
+}
+h1.hero-title em{
+  background:linear-gradient(135deg,var(--gold-light),#fde68a,#fdba74);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-style:normal;
+}
+.hero-desc{color:rgba(255,255,255,.72);font-size:16px;line-height:1.8;margin-bottom:32px;max-width:500px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px;}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  color:var(--green-deep);font-weight:900;padding:15px 30px;border-radius:50px;
+  text-decoration:none;font-size:15px;transition:.3s;display:inline-block;
+  box-shadow:0 6px 22px rgba(251,191,36,.42);
+}
+.btn-gold:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 14px 38px rgba(251,191,36,.65);}
+.btn-outline{
+  border:2px solid rgba(255,255,255,.32);color:var(--white);font-weight:800;
+  padding:14px 28px;border-radius:50px;text-decoration:none;font-size:15px;transition:.3s;display:inline-block;
+}
+.btn-outline:hover{border-color:var(--gold-light);color:var(--gold-light);transform:translateY(-2px);}
+/* Stats bubbles */
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.hstat{
+  background:rgba(255,255,255,.1);border-radius:20px;padding:18px;
+  text-align:center;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+}
+.hstat:hover{transform:translateY(-6px) scale(1.07);background:rgba(255,255,255,.18);}
+.hstat-num{font-size:28px;font-weight:900;color:var(--gold-light);font-family:'Baloo 2',sans-serif;}
+.hstat:nth-child(2) .hstat-num{color:#6ee7b7;}
+.hstat:nth-child(3) .hstat-num{color:#93c5fd;}
+.hstat-label{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;margin-top:4px;}
+/* Hero card */
+.hero-card{
+  background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.14);
+  border-radius:28px;padding:32px;backdrop-filter:blur(12px);position:relative;overflow:hidden;
+}
+.hero-card::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(251,191,36,.08);pointer-events:none;
+}
+.hero-card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.hero-card-icon{font-size:36px;animation:wiggle 2.5s ease-in-out infinite;}
+@keyframes wiggle{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+.hero-card-title{font-size:17px;font-weight:900;color:var(--gold-light);font-family:'Baloo 2',sans-serif;}
+.feat-list{list-style:none;}
+.feat-list li{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);
+  color:rgba(255,255,255,.88);font-size:14px;line-height:1.5;font-weight:600;
+  transition:transform .2s;
+}
+.feat-list li:hover{transform:translateX(7px);}
+.feat-list li:last-child{border:none;}
+.feat-list li span{font-size:20px;flex-shrink:0;}
+
+/* ─── WAVE DIVIDERS ─────────────────────────────── */
+.wave-divider{display:block;width:100%;line-height:0;overflow:hidden;}
+.wave-divider svg{display:block;width:100%;}
+
+/* ─── FUN FACTS STRIP ───────────────────────────── */
+.funfacts{
+  background:linear-gradient(135deg,#fbbf24 0%,#fde68a 50%,#fbbf24 100%);
+  padding:22px 0;
+}
+.funfacts-inner{
+  max-width:1200px;margin:auto;padding:0 24px;
+  display:flex;gap:36px;justify-content:center;flex-wrap:wrap;align-items:center;
+}
+.funfact{
+  display:flex;align-items:center;gap:10px;
+  color:#1a3a20;font-weight:900;font-size:14px;font-family:'Baloo 2',sans-serif;
+  transition:transform .25s;
+}
+.funfact:hover{transform:scale(1.12) rotate(-3deg);}
+.funfact-icon{font-size:28px;}
+
+/* ─── SECTIONS ──────────────────────────────────── */
+section{padding:88px 0;}
+.container{max-width:1200px;margin:auto;padding:0 24px;}
+.section-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(22,163,74,.12);border:2px solid rgba(22,163,74,.3);color:var(--green-main);
+  font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:7px 18px;border-radius:50px;margin-bottom:14px;
+}
+.section-title{
+  font-size:clamp(26px,4vw,42px);font-weight:900;line-height:1.15;color:var(--text);
+  margin-bottom:14px;font-family:'Baloo 2','Nunito',sans-serif;
+}
+.section-sub{color:var(--gray);font-size:15px;line-height:1.75;max-width:560px;}
+.section-header{margin-bottom:52px;}
+.section-header.center{text-align:center;}
+.section-header.center .section-sub{margin:auto;}
+
+/* ─── PROFIL ────────────────────────────────────── */
+#profil{background:var(--white);}
+.profil-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start;}
+.profil-card{
+  background:linear-gradient(155deg,var(--green-deep) 0%,#1a4a6e 100%);
+  border-radius:28px;padding:36px;color:var(--white);position:relative;overflow:hidden;
+  box-shadow:0 24px 64px rgba(13,61,34,.28);
+}
+.profil-card::before{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(251,191,36,.09);pointer-events:none;
+}
+.profil-card::after{
+  content:'٭';font-family:'Amiri',serif;font-size:140px;
+  color:rgba(255,255,255,.03);position:absolute;bottom:-20px;left:-10px;
+  pointer-events:none;line-height:1;
+}
+.pc-emblem{font-size:72px;text-align:center;display:block;margin-bottom:16px;position:relative;z-index:1;}
+.pc-name{font-family:'Baloo 2',sans-serif;font-size:22px;text-align:center;color:var(--gold-light);margin-bottom:4px;position:relative;z-index:1;font-weight:900;}
+.pc-sub{text-align:center;color:rgba(255,255,255,.55);font-size:13px;margin-bottom:20px;position:relative;z-index:1;}
+.pc-line{width:60px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;margin:0 auto 20px;position:relative;z-index:1;}
+.pc-info{list-style:none;position:relative;z-index:1;}
+.pc-info li{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:13px;color:rgba(255,255,255,.82);}
+.pc-info li:last-child{border:none;}
+.pc-info li strong{color:var(--gold-light);min-width:110px;font-weight:800;}
+.profil-right{}
+.vm-box{
+  background:linear-gradient(135deg,var(--green-mist),#fff7ed);
+  border-radius:18px;padding:22px;margin-bottom:14px;border-left:5px solid var(--green-main);
+  transition:transform .25s;
+}
+.vm-box:hover{transform:translateX(6px);}
+.vm-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--green-main);margin-bottom:7px;}
+.vm-text{color:var(--text);line-height:1.75;font-size:14px;}
+.program-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px;}
+.prog-item{
+  border-radius:18px;padding:16px;
+  display:flex;align-items:center;gap:10px;font-size:13px;font-weight:800;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);cursor:default;
+}
+.prog-item:hover{transform:translateY(-6px) rotate(-1.5deg) scale(1.05);box-shadow:0 12px 30px rgba(0,0,0,.13);}
+.prog-item span{font-size:28px;}
+.prog-item.c1{background:var(--green-pale);color:var(--green-dark);}
+.prog-item.c2{background:var(--sky-pale);color:#0369a1;}
+.prog-item.c3{background:var(--coral-pale);color:#c2410c;}
+.prog-item.c4{background:var(--sun-pale);color:#92400e;}
+.prog-item.c5{background:var(--grape-pale);color:#7c3aed;}
+.prog-item.c6{background:var(--pink-pale);color:#be185d;}
+
+/* ─── BERITA ────────────────────────────────────── */
+#berita{background:var(--green-mist);position:relative;}
+.berita-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.berita-card{
+  background:var(--white);border-radius:24px;overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.07);
+  transition:all .38s cubic-bezier(.34,1.56,.64,1);cursor:pointer;
+  border:2px solid transparent;
+}
+.berita-card:hover{
+  transform:translateY(-10px) rotate(.5deg);
+  box-shadow:0 22px 54px rgba(22,163,74,.22);
+  border-color:var(--green-light);
+}
+.berita-img{height:190px;position:relative;display:flex;align-items:center;justify-content:center;font-size:56px;}
+.berita-img.bg1{background:linear-gradient(135deg,var(--green-deep),var(--green-dark));}
+.berita-img.bg2{background:linear-gradient(135deg,#f97316,#ea580c);}
+.berita-img.bg3{background:linear-gradient(135deg,#a855f7,#7c3aed);}
+.berita-cat{
+  position:absolute;top:14px;left:14px;
+  background:var(--gold-light);color:var(--green-deep);
+  font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 14px;border-radius:50px;box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+.berita-body{padding:22px;}
+.berita-date{font-size:12px;color:var(--gray);margin-bottom:8px;font-weight:700;}
+.berita-title{font-size:16px;font-weight:900;color:var(--text);margin-bottom:9px;line-height:1.4;font-family:'Baloo 2',sans-serif;}
+.berita-excerpt{font-size:13px;color:var(--gray);line-height:1.65;}
+.berita-read{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--green-main);font-size:13px;font-weight:800;margin-top:12px;text-decoration:none;
+  padding:7px 18px;background:var(--green-pale);border-radius:50px;transition:.25s;
+}
+.berita-read:hover{background:var(--green-main);color:var(--white);}
+.berita-read::after{content:'→';transition:.2s;}
+.berita-card:hover .berita-read::after{transform:translateX(4px);}
+
+/* ─── GALERI ────────────────────────────────────── */
+#galeri{
+  background:linear-gradient(160deg,#0d3d22 0%,#1e3a5e 100%);
+  position:relative;overflow:hidden;
+}
+#galeri::before{
+  content:'';position:absolute;inset:0;
   background-image:
-    radial-gradient(ellipse at 65% 40%, rgba(39,163,90,.2) 0%, transparent 55%),
-    radial-gradient(ellipse at 15% 80%, rgba(200,147,10,.1) 0%, transparent 45%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 8 L72 24 L72 56 L40 72 L8 56 L8 24 Z' fill='none' stroke='rgba(255,255,255,0.035)' stroke-width='1'/%3E%3C/svg%3E");
-  display: flex; align-items: center; overflow: hidden; position: relative;
+    radial-gradient(circle at 25% 55%,rgba(168,85,247,.12) 0%,transparent 50%),
+    radial-gradient(circle at 75% 30%,rgba(251,191,36,.08) 0%,transparent 50%);
+  pointer-events:none;
+}
+#galeri .section-title{color:var(--white);}
+#galeri .section-sub{color:rgba(255,255,255,.55);}
+#galeri .section-tag{background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.38);color:var(--gold-light);}
+.galeri-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,190px);gap:14px;}
+.g-item{border-radius:20px;overflow:hidden;position:relative;cursor:pointer;transition:transform .38s cubic-bezier(.34,1.56,.64,1);}
+.g-item:hover{transform:scale(1.05) rotate(.5deg);z-index:1;}
+.g-item:nth-child(1){grid-column:span 2;grid-row:span 2;}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.g-item:hover img{transform:scale(1.1);}
+.g-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(13,61,34,.9) 0%,transparent 60%);
+  opacity:0;display:flex;align-items:flex-end;padding:18px;transition:.3s;
+}
+.g-item:hover .g-overlay{opacity:1;}
+.g-caption{color:var(--white);font-size:14px;font-weight:800;}
+.galeri-social{display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap;}
+.gsoc-btn{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  padding:14px 28px;border-radius:50px;font-weight:900;font-size:14px;
+  transition:.3s;box-shadow:0 6px 20px rgba(0,0,0,.25);
+}
+.gsoc-btn:hover{transform:translateY(-4px) scale(1.07);box-shadow:0 16px 40px rgba(0,0,0,.3);}
+.gsoc-btn svg{width:20px;height:20px;flex-shrink:0;}
+.gsoc-yt{background:linear-gradient(135deg,#ff6b6b,#cc0000);color:#fff;}
+.gsoc-tt{background:linear-gradient(135deg,#25f4ee,#000 55%,#fe2c55);color:#fff;}
+
+/* ─── TESTIMONI ─────────────────────────────────── */
+#testimoni{background:linear-gradient(160deg,#fefce8,#f0fdf4 50%,#eff6ff);position:relative;}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.testi-card{
+  background:var(--white);border-radius:24px;padding:26px;position:relative;
+  box-shadow:0 4px 24px rgba(0,0,0,.07);
+  transition:all .38s cubic-bezier(.34,1.56,.64,1);
+  border-bottom:4px solid var(--green-main);
+}
+.testi-card:nth-child(2){border-bottom-color:var(--coral);}
+.testi-card:nth-child(3){border-bottom-color:var(--grape);}
+.testi-card:hover{transform:translateY(-8px);box-shadow:0 22px 52px rgba(0,0,0,.1);}
+.testi-card::before{
+  content:'❝';font-size:80px;color:var(--green-pale);
+  position:absolute;top:2px;right:20px;line-height:1;font-family:Georgia,serif;
+}
+.testi-stars{font-size:17px;margin-bottom:12px;}
+.testi-text{color:var(--gray);font-size:14px;line-height:1.8;margin-bottom:20px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.tav{
+  width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--white);font-size:18px;
+  background:linear-gradient(135deg,var(--green-main),var(--green-dark));flex-shrink:0;
+}
+.testi-card:nth-child(2) .tav{background:linear-gradient(135deg,var(--coral),#c2410c);}
+.testi-card:nth-child(3) .tav{background:linear-gradient(135deg,var(--grape),#7c3aed);}
+.t-name{font-weight:900;color:var(--text);font-size:14px;}
+.t-role{font-size:12px;color:var(--gray);font-weight:600;}
+
+/* ─── KONTAK ────────────────────────────────────── */
+#kontak{background:var(--white);}
+.kontak-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.kontak-item{display:flex;gap:16px;margin-bottom:26px;align-items:flex-start;}
+.k-icon{
+  width:52px;height:52px;min-width:52px;
+  background:linear-gradient(135deg,var(--green-main),var(--green-dark));
+  border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 6px 18px rgba(22,163,74,.28);
+}
+.kontak-item:hover .k-icon{transform:rotate(-14deg) scale(1.14);}
+.k-detail strong{display:block;font-weight:900;color:var(--text);font-size:14px;margin-bottom:3px;}
+.k-detail span{color:var(--gray);font-size:14px;line-height:1.6;}
+.wa-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  color:var(--white);font-weight:900;padding:16px 28px;border-radius:50px;
+  text-decoration:none;font-size:15px;transition:.3s;margin-top:20px;
+  box-shadow:0 6px 22px rgba(37,211,102,.38);
+}
+.wa-btn:hover{transform:translateY(-3px) scale(1.06);box-shadow:0 14px 38px rgba(37,211,102,.55);}
+.map-box{
+  background:linear-gradient(135deg,var(--green-mist),#eff6ff);
+  border-radius:24px;height:320px;display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--border);text-align:center;
+}
+.map-box > div{font-size:52px;margin-bottom:12px;animation:float 4s ease-in-out infinite;}
+.map-box p{font-size:14px;color:var(--gray);line-height:1.6;}
+.map-box a{
+  color:var(--green-main);font-weight:800;text-decoration:none;
+  display:inline-block;margin-top:10px;padding:9px 22px;
+  background:var(--green-pale);border-radius:50px;transition:.25s;
+}
+.map-box a:hover{background:var(--green-main);color:var(--white);}
+
+/* ─── FOOTER ────────────────────────────────────── */
+footer{
+  background:linear-gradient(160deg,var(--green-deep) 0%,#1a2e4a 100%);
+  color:rgba(255,255,255,.6);padding:44px 24px;text-align:center;
+  border-top:4px solid var(--gold-light);
+}
+.footer-arabic{font-family:'Amiri',serif;font-size:22px;color:var(--gold-light);margin-bottom:8px;}
+.footer-name{font-size:20px;font-weight:900;color:var(--white);margin-bottom:6px;font-family:'Baloo 2',sans-serif;}
+footer p{font-size:13px;line-height:1.8;}
+footer a{color:var(--gold-light);text-decoration:none;transition:.2s;}
+footer a:hover{color:var(--white);}
+footer .admin-link{color:rgba(255,255,255,.2);font-size:11px;}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:960px){
+  .hero-inner,.profil-grid,.kontak-grid{grid-template-columns:1fr;}
+  .hero-visual-wrap{display:none;}
+  .berita-grid,.testi-grid{grid-template-columns:1fr 1fr;}
+  .galeri-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto;}
+  .g-item:nth-child(1){grid-column:span 2;grid-row:span 1;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .funfacts-inner{gap:22px;}
+}
+@media(max-width:580px){
+  .berita-grid,.testi-grid{grid-template-columns:1fr;}
+  .hero-stats{grid-template-columns:repeat(3,1fr);gap:8px;}
+  .program-grid{grid-template-columns:1fr;}
+  .funfacts-inner{flex-direction:column;gap:16px;}
 }
 
-/* Crescent moon decoration */
-.moon-deco {
-  position: absolute; top: 80px; right: 80px;
-  width: 140px; height: 140px; opacity: .08;
-}
-.moon-deco svg { width: 100%; height: 100%; }
-.star-deco {
-  position: absolute; font-size: 18px; opacity: .12;
-  animation: twinkle 3s ease-in-out infinite;
-}
-@keyframes twinkle { 0%,100%{opacity:.12} 50%{opacity:.22} }
-
-.hero-inner {
-  max-width: 1200px; margin: auto; padding: 110px 24px 80px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1;
-}
-.hero-arabic {
-  font-family: 'Amiri', serif; color: var(--gold-light);
-  font-size: 28px; margin-bottom: 12px; direction: rtl; opacity: .9;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(200,147,10,.15); border: 1px solid rgba(200,147,10,.3);
-  color: var(--gold-light); font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase; padding: 7px 16px; border-radius: 50px; margin-bottom: 18px;
-}
-h1.hero-title {
-  font-size: clamp(34px, 5vw, 58px); line-height: 1.1; color: var(--white);
-  margin-bottom: 18px; font-weight: 800;
-}
-h1.hero-title em { color: var(--gold-light); font-style: normal; }
-.hero-desc { color: rgba(255,255,255,.65); font-size: 16px; line-height: 1.75; margin-bottom: 32px; max-width: 500px; }
-.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
-.btn-gold {
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--green-deep); font-weight: 800; padding: 14px 28px; border-radius: 12px;
-  text-decoration: none; font-size: 15px; transition: .25s; display: inline-block;
-  box-shadow: 0 6px 20px rgba(200,147,10,.35);
-}
-.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(200,147,10,.5); }
-.btn-outline {
-  border: 2px solid rgba(255,255,255,.25); color: var(--white); font-weight: 700;
-  padding: 13px 26px; border-radius: 12px; text-decoration: none; font-size: 15px; transition: .25s; display: inline-block;
-}
-.btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
-.hero-stats {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
-  background: rgba(255,255,255,.1); border-radius: 14px; overflow: hidden;
-}
-.hstat { background: rgba(255,255,255,.05); padding: 18px; text-align: center; }
-.hstat-num { font-size: 30px; font-weight: 800; color: var(--gold-light); font-family: 'Amiri', serif; }
-.hstat-label { font-size: 11px; color: rgba(255,255,255,.5); letter-spacing: 1px; text-transform: uppercase; margin-top: 3px; }
-
-/* Hero right card */
-.hero-card {
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13);
-  border-radius: 24px; padding: 32px; backdrop-filter: blur(10px);
-}
-.hero-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-.hero-card-icon { font-size: 28px; }
-.hero-card-title { font-size: 16px; font-weight: 800; color: var(--gold-light); }
-.feat-list { list-style: none; }
-.feat-list li {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.07);
-  color: rgba(255,255,255,.8); font-size: 14px; line-height: 1.5;
-}
-.feat-list li:last-child { border: none; }
-.feat-list li span { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-
-/* ── SECTIONS ── */
-section { padding: 88px 0; }
-.container { max-width: 1200px; margin: auto; padding: 0 24px; }
-.section-tag {
-  display: inline-block; background: rgba(30,122,70,.12);
-  border: 1px solid rgba(30,122,70,.25); color: var(--green-main);
-  font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
-  padding: 6px 16px; border-radius: 50px; margin-bottom: 12px;
-}
-.section-title { font-size: clamp(26px,4vw,42px); font-weight: 800; line-height: 1.15; color: var(--text); margin-bottom: 14px; }
-.section-sub { color: var(--gray); font-size: 15px; line-height: 1.75; max-width: 560px; }
-.section-header { margin-bottom: 52px; }
-.section-header.center { text-align: center; }
-.section-header.center .section-sub { margin: auto; }
-
-/* Divider ornament */
-.ornament-divider {
-  text-align: center; font-size: 22px; margin: 0 0 16px;
-  color: var(--gold); letter-spacing: 8px; opacity: .6;
-}
-
-/* ── PROFIL ── */
-#profil { background: var(--white); }
-.profil-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
-.profil-card {
-  background: linear-gradient(155deg, var(--green-deep) 0%, var(--green-dark) 100%);
-  border-radius: 24px; padding: 36px; color: var(--white); position: relative; overflow: hidden;
-}
-.profil-card::before {
-  content: ''; position: absolute; top: -50px; right: -50px;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: rgba(200,147,10,.08); pointer-events: none;
-}
-.profil-card::after {
-  content: '٭'; font-family: 'Amiri', serif; font-size: 120px;
-  color: rgba(255,255,255,.04); position: absolute; bottom: -20px; left: -10px;
-  pointer-events: none; line-height: 1;
-}
-.pc-emblem { font-size: 72px; text-align: center; display: block; margin-bottom: 16px; position: relative; z-index: 1; }
-.pc-name { font-family: 'Amiri', serif; font-size: 24px; text-align: center; color: var(--gold-light); margin-bottom: 4px; position: relative; z-index: 1; }
-.pc-sub { text-align: center; color: rgba(255,255,255,.55); font-size: 13px; margin-bottom: 20px; position: relative; z-index: 1; }
-.pc-line { width: 50px; height: 2px; background: var(--gold); margin: 0 auto 20px; position: relative; z-index: 1; }
-.pc-info { list-style: none; position: relative; z-index: 1; }
-.pc-info li { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.07); font-size: 13px; color: rgba(255,255,255,.75); }
-.pc-info li:last-child { border: none; }
-.pc-info li strong { color: var(--gold-light); min-width: 110px; font-weight: 700; }
-.profil-right {}
-.vm-box { background: var(--green-mist); border-radius: 14px; padding: 22px; margin-bottom: 14px; border-left: 4px solid var(--green-main); }
-.vm-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--green-main); margin-bottom: 7px; }
-.vm-text { color: var(--text); line-height: 1.75; font-size: 14px; }
-.program-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
-.prog-item {
-  background: var(--green-pale); border-radius: 12px; padding: 16px;
-  display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; color: var(--green-dark);
-}
-.prog-item span { font-size: 22px; }
-
-/* ── BERITA ── */
-#berita { background: var(--green-mist); }
-.berita-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
-.berita-card {
-  background: var(--white); border-radius: 18px; overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0,0,0,.06); transition: .3s; cursor: pointer;
-}
-.berita-card:hover { transform: translateY(-6px); box-shadow: 0 14px 40px rgba(30,122,70,.15); }
-.berita-img {
-  height: 190px; position: relative; display: flex; align-items: center; justify-content: center;
-  font-size: 56px;
-}
-.berita-img.bg1 { background: linear-gradient(135deg, var(--green-deep), var(--green-dark)); }
-.berita-img.bg2 { background: linear-gradient(135deg, var(--green-dark), var(--green-main)); }
-.berita-img.bg3 { background: linear-gradient(135deg, #1a4a6e, #0d3357); }
-.berita-cat {
-  position: absolute; top: 14px; left: 14px;
-  background: var(--gold); color: var(--green-deep);
-  font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
-  padding: 4px 12px; border-radius: 50px;
-}
-.berita-body { padding: 22px; }
-.berita-date { font-size: 12px; color: var(--gray); margin-bottom: 8px; font-weight: 600; }
-.berita-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 9px; line-height: 1.4; }
-.berita-excerpt { font-size: 13px; color: var(--gray); line-height: 1.65; }
-.berita-read {
-  display: inline-flex; align-items: center; gap: 5px;
-  color: var(--green-main); font-size: 13px; font-weight: 700; margin-top: 12px; text-decoration: none;
-}
-.berita-read::after { content: '→'; transition: .2s; }
-.berita-card:hover .berita-read::after { transform: translateX(4px); }
-
-/* ── GALERI ── */
-#galeri {
-  background: var(--green-deep);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
-}
-#galeri .section-title { color: var(--white); }
-#galeri .section-sub { color: rgba(255,255,255,.5); }
-#galeri .section-tag { background: rgba(200,147,10,.15); border-color: rgba(200,147,10,.3); color: var(--gold-light); }
-.galeri-grid { display: grid; grid-template-columns: repeat(4,1fr); grid-template-rows: repeat(2,190px); gap: 12px; }
-.g-item { border-radius: 14px; overflow: hidden; position: relative; cursor: pointer; }
-.g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-.g-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 52px; transition: .4s; }
-.g-item:nth-child(1) .g-inner { font-size: 80px; background: linear-gradient(135deg, #0d3320, #1a5c38); }
-.g-item:nth-child(2) .g-inner { background: linear-gradient(135deg, #1a5c38, #1e7a46); }
-.g-item:nth-child(3) .g-inner { background: linear-gradient(135deg, #1e7a46, #27a35a); }
-.g-item:nth-child(4) .g-inner { background: linear-gradient(135deg, #c8930a, #8a6205); }
-.g-item:nth-child(5) .g-inner { background: linear-gradient(135deg, #1a4a6e, #0d3357); }
-.g-item:hover .g-inner { transform: scale(1.08); }
-.g-overlay {
-  position: absolute; inset: 0; background: rgba(13,51,32,.75);
-  opacity: 0; display: flex; align-items: flex-end; padding: 18px; transition: .3s;
-}
-.g-item:hover .g-overlay { opacity: 1; }
-.g-caption { color: var(--white); font-size: 14px; font-weight: 700; }
-
-/* ── TESTIMONI ── */
-#testimoni { background: var(--cream); }
-.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
-.testi-card {
-  background: var(--white); border-radius: 20px; padding: 26px; position: relative;
-  box-shadow: 0 2px 18px rgba(0,0,0,.06); border-top: 3px solid var(--green-main);
-}
-.testi-card::before {
-  content: '❝'; font-family: 'Amiri', serif; font-size: 72px; color: var(--green-pale);
-  position: absolute; top: 6px; right: 20px; line-height: 1;
-}
-.testi-stars { color: var(--gold); font-size: 15px; margin-bottom: 12px; }
-.testi-text { color: var(--gray); font-size: 14px; line-height: 1.75; margin-bottom: 18px; font-style: italic; }
-.testi-author { display: flex; align-items: center; gap: 11px; }
-.tav { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--green-main), var(--green-dark)); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--white); font-size: 16px; }
-.t-name { font-weight: 800; color: var(--text); font-size: 14px; }
-.t-role { font-size: 12px; color: var(--gray); }
-
-/* ── KONTAK ── */
-#kontak { background: var(--white); }
-.kontak-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-.kontak-item { display: flex; gap: 16px; margin-bottom: 26px; align-items: flex-start; }
-.k-icon {
-  width: 48px; height: 48px; min-width: 48px;
-  background: linear-gradient(135deg, var(--green-main), var(--green-light));
-  border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;
-}
-.k-detail strong { display: block; font-weight: 800; color: var(--text); font-size: 14px; margin-bottom: 3px; }
-.k-detail span { color: var(--gray); font-size: 14px; line-height: 1.6; }
-.wa-btn {
-  display: flex; align-items: center; gap: 12px;
-  background: #25D366; color: var(--white); font-weight: 800;
-  padding: 15px 26px; border-radius: 14px; text-decoration: none; font-size: 15px; transition: .25s; margin-top: 20px;
-}
-.wa-btn:hover { background: #1ebe5a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.3); }
-.map-box {
-  background: var(--green-mist); border-radius: 20px; height: 320px;
-  display: flex; align-items: center; justify-content: center;
-  border: 2px solid var(--border); text-align: center; overflow: hidden;
-}
-.map-box div { font-size: 44px; margin-bottom: 10px; }
-.map-box p { font-size: 14px; color: var(--gray); line-height: 1.6; }
-.map-box a { color: var(--green-main); font-weight: 700; text-decoration: none; }
-
-/* ── FOOTER ── */
-footer {
-  background: var(--green-deep);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3C/svg%3E");
-  color: rgba(255,255,255,.6); padding: 40px 24px; text-align: center; border-top: 1px solid rgba(200,147,10,.2);
-}
-.footer-arabic { font-family: 'Amiri', serif; font-size: 22px; color: var(--gold-light); margin-bottom: 8px; }
-.footer-name { font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 6px; }
-footer p { font-size: 13px; line-height: 1.8; }
-footer a { color: var(--gold-light); text-decoration: none; }
-footer .admin-link { color: rgba(255,255,255,.2); font-size: 11px; }
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px) {
-  .hero-inner, .profil-grid, .kontak-grid { grid-template-columns: 1fr; }
-  .hero-visual-wrap { display: none; }
-  .berita-grid, .testi-grid { grid-template-columns: 1fr 1fr; }
-  .galeri-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: auto; }
-  .g-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-}
-@media(max-width:580px) {
-  .berita-grid, .testi-grid { grid-template-columns: 1fr; }
-  .hero-stats { grid-template-columns: 1fr; }
-  .program-grid { grid-template-columns: 1fr; }
-}
-@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-.fade-up { animation: fadeUp .8s ease forwards; opacity: 0; }
-.d1{animation-delay:.1s} .d2{animation-delay:.2s} .d3{animation-delay:.3s} .d4{animation-delay:.4s}
+/* ─── ANIMATIONS ─────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .8s ease forwards;opacity:0;}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+/* Bounce on enter */
+.bounce-in{opacity:0;transform:scale(.8);transition:opacity .5s ease,transform .5s cubic-bezier(.34,1.56,.64,1);}
+.bounce-in.visible{opacity:1;transform:scale(1);}
 </style>
 </head>
 <body>
@@ -355,10 +479,12 @@ footer .admin-link { color: rgba(255,255,255,.2); font-size: 11px; }
 <nav>
   <div class="nav-inner">
     <a href="#beranda" class="nav-logo">
-      <div class="logo-mark">🕌</div>
+      <div class="logo-mark">
+        <img src="img/logo-sekolah.png" alt="Logo MIS Ta'alamul Huda" style="width:100%;height:100%;object-fit:contain;"/>
+      </div>
       <div class="logo-text">
-        <strong>MI Ta'alamul Huda</strong>
-        <span>Madrasah Ibtidaiyah</span>
+        <strong>MIS Ta'alamul Huda</strong>
+        <span>Madrasah Ibtidaiyah Swasta</span>
       </div>
     </a>
     <div class="nav-links">
@@ -387,23 +513,39 @@ footer .admin-link { color: rgba(255,255,255,.2); font-size: 11px; }
 
 <!-- HERO -->
 <section id="beranda">
+  <!-- Colourful blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+  <!-- Moon deco -->
   <div class="moon-deco"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C30 10 15 25 15 50 C15 75 30 90 50 90 C35 80 25 66 25 50 C25 34 35 20 50 10Z" fill="white"/><circle cx="65" cy="28" r="5" fill="white"/></svg></div>
-  <div class="star-deco" style="top:15%;left:12%;animation-delay:.5s">✦</div>
-  <div class="star-deco" style="top:25%;left:40%;animation-delay:1.2s">✦</div>
-  <div class="star-deco" style="top:60%;right:15%;animation-delay:.8s">✦</div>
+  <!-- Stars -->
+  <div class="star-deco" style="top:15%;left:12%;font-size:16px;animation-delay:.5s">✦</div>
+  <div class="star-deco" style="top:25%;left:42%;font-size:12px;animation-delay:1.2s">✦</div>
+  <div class="star-deco" style="top:60%;right:17%;font-size:14px;animation-delay:.8s">✦</div>
+  <div class="star-deco" style="top:35%;left:30%;font-size:10px;animation-delay:2s">✦</div>
+  <!-- Fun floating emoji — bigger & more! -->
+  <div class="fun-deco" style="top:14%;left:5%;font-size:40px;animation-delay:.2s">🎈</div>
+  <div class="fun-deco" style="top:72%;left:7%;font-size:36px;animation-delay:1.4s">⭐</div>
+  <div class="fun-deco" style="top:10%;right:6%;font-size:38px;animation-delay:.9s">🎊</div>
+  <div class="fun-deco" style="top:80%;right:5%;font-size:40px;animation-delay:1.8s">📚</div>
+  <div class="fun-deco" style="top:50%;left:3%;font-size:34px;animation-delay:2.2s">🌟</div>
+  <div class="fun-deco" style="top:22%;right:18%;font-size:32px;animation-delay:0.6s">🦋</div>
+  <div class="fun-deco" style="top:65%;right:22%;font-size:34px;animation-delay:3s">🎨</div>
   <div class="hero-inner">
     <div>
       <div class="hero-arabic fade-up">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-      <div class="hero-badge fade-up d1">☾ Terakreditasi — Madrasah Terpercaya</div>
+      <div class="hero-badge fade-up d1">☾ Terakreditasi B - Baik Sekali</div>
       <h1 class="hero-title fade-up d2">Tumbuh dalam <em>Ilmu</em> &amp; Taqwa</h1>
-      <p class="hero-desc fade-up d3">MI Ta'alamul Huda hadir sebagai madrasah ibtidaiyah yang menyeimbangkan ilmu pengetahuan umum dengan nilai-nilai keislaman. Membentuk generasi berakhlak mulia, cerdas, dan berdaya saing.</p>
+      <p class="hero-desc fade-up d3">MIS Ta'alamul Huda hadir sebagai madrasah ibtidaiyah yang menyeimbangkan ilmu pengetahuan umum dengan nilai-nilai keislaman. Membentuk generasi berakhlak mulia, cerdas, dan berdaya saing.</p>
       <div class="hero-btns fade-up d4">
         <a href="pendaftaran.html" class="btn-gold">📋 Daftar Sekarang</a>
         <a href="#profil" class="btn-outline">Lihat Profil</a>
       </div>
       <div class="hero-stats fade-up" style="animation-delay:.5s">
-        <div class="hstat"><div class="hstat-num">15+</div><div class="hstat-label">Tahun Berdiri</div></div>
-        <div class="hstat"><div class="hstat-num">480</div><div class="hstat-label">Siswa Aktif</div></div>
+        <div class="hstat"><div class="hstat-num">35+</div><div class="hstat-label">Tahun Berdiri</div></div>
+        <div class="hstat"><div class="hstat-num">412</div><div class="hstat-label">Siswa Aktif</div></div>
         <div class="hstat"><div class="hstat-num">100%</div><div class="hstat-label">Kelulusan</div></div>
       </div>
     </div>
@@ -417,8 +559,8 @@ footer .admin-link { color: rgba(255,255,255,.2); font-size: 11px; }
           <li><span>📖</span> Tahfidz Al-Qur'an minimal 2 Juz</li>
           <li><span>🧮</span> Kurikulum Merdeka Belajar + Diniyah</li>
           <li><span>🏆</span> Juara Lomba Akademik Tingkat Kabupaten</li>
-          <li><span>🌿</span> Lingkungan belajar hijau & asri</li>
-          <li><span>👨‍🏫</span> Guru bersertifikasi & berpengalaman</li>
+          <li><span>🌿</span> Lingkungan belajar hijau &amp; asri</li>
+          <li><span>👨‍🏫</span> Guru bersertifikasi &amp; berpengalaman</li>
           <li><span>🤝</span> Bimbingan konseling dan parenting</li>
         </ul>
       </div>
@@ -426,138 +568,186 @@ footer .admin-link { color: rgba(255,255,255,.2); font-size: 11px; }
   </div>
 </section>
 
+<!-- WAVE: Hero → Fun Facts -->
+<div class="wave-divider" style="background:linear-gradient(160deg,#0d3d22,#0e3a56);">
+  <svg viewBox="0 0 1440 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,36L60,42C120,48,240,60,360,60C480,60,600,48,720,42C840,36,960,36,1080,42C1200,48,1320,60,1380,66L1440,72L1440,72L0,72Z" fill="#fbbf24"/>
+  </svg>
+</div>
+
+<!-- FUN FACTS STRIP -->
+<div class="funfacts">
+  <div class="funfacts-inner">
+    <div class="funfact"><span class="funfact-icon">📖</span> Tahfidz Al-Qur'an</div>
+    <div class="funfact"><span class="funfact-icon">🏅</span> Prestasi Nasional</div>
+    <div class="funfact"><span class="funfact-icon">🎨</span> Seni &amp; Kreativitas</div>
+    <div class="funfact"><span class="funfact-icon">⚽</span> Olahraga Juara</div>
+    <div class="funfact"><span class="funfact-icon">💻</span> Teknologi &amp; Sains</div>
+    <div class="funfact"><span class="funfact-icon">🌱</span> Karakter Islami</div>
+  </div>
+</div>
+
+<!-- WAVE: Fun Facts → Profil -->
+<div class="wave-divider" style="background:#fbbf24;">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,28L80,22C160,16,320,4,480,8C640,12,800,32,960,36C1120,40,1280,28,1360,22L1440,16L1440,56L0,56Z" fill="#ffffff"/>
+  </svg>
+</div>
+
 <!-- PROFIL -->
 <section id="profil">
   <div class="container">
     <div class="profil-grid">
-      <div>
+      <div class="reveal">
         <div class="profil-card">
-          <span class="pc-emblem">🕌</span>
-          <div class="pc-name">MI Ta'alamul Huda</div>
-          <div class="pc-sub">Madrasah Ibtidaiyah — SD Islam</div>
+          <span class="pc-emblem">
+            <img src="img/logo-sekolah.png" alt="Logo MIS Ta'alamul Huda" style="width:72px;height:72px;object-fit:contain;"/>
+          </span>
+          <div class="pc-name" id="schoolName">MIS Ta'alamul Huda</div>
+          <div class="pc-sub" id="schoolTagline">Madrasah Ibtidaiyah — SD Islam</div>
           <div class="pc-line"></div>
           <ul class="pc-info">
-            <li><strong>NSM / NPSN</strong>111233010001 / 60721234</li>
-            <li><strong>Akreditasi</strong>A (Sangat Baik)</li>
-            <li><strong>Didirikan</strong>2009</li>
-            <li><strong>Kepala MI</strong>Ustadz H. Mukhlis, S.Pd.I</li>
-            <li><strong>Guru &amp; Staff</strong>28 Tenaga Pendidik</li>
+            <li><strong>NSM / NPSN</strong><span id="schoolNsmNpsn">111232010153 / 60706842</span></li>
+            <li><strong>Akreditasi</strong><span id="schoolAkreditasi">B - Baik Sekali</span></li>
+            <li><strong>Didirikan</strong>1957</li>
+            <li><strong>Kepala MI</strong><span id="schoolKepala">Ustadz H. Mukhlis, S.Pd.I</span></li>
+            <li><strong>Guru &amp; Staff</strong>21 Tenaga Pendidik (20 Guru + 1 Kepala Sekolah)</li>
             <li><strong>Status</strong>Swasta — Di bawah Kemenag</li>
             <li><strong>Kurikulum</strong>Merdeka Belajar + Diniyah</li>
-            <li><strong>Alamat</strong>Jl. Pesantren No. 5, Ds. Harapan</li>
+            <li><strong>Alamat</strong><span id="schoolAlamatMini">Jl. Permata No. 19 Rt.006/005 Desa Curug, Kecamatan Gunungsindur, Kab. Bogor Jawa-Barat.</span></li>
           </ul>
         </div>
       </div>
-      <div class="profil-right">
+      <div class="profil-right reveal">
         <div class="section-tag">Tentang Kami</div>
         <h2 class="section-title">Profil Madrasah</h2>
-        <p style="color:var(--gray);line-height:1.8;margin-bottom:24px;font-size:14px;">MI Ta'alamul Huda berdiri sejak 2009 dengan tekad menghadirkan pendidikan dasar berkualitas yang mengintegrasikan ilmu umum dan agama Islam. Kami berkomitmen mencetak generasi Qur'ani yang berilmu, bertaqwa, dan siap menghadapi tantangan zaman.</p>
+        <p style="color:var(--gray);line-height:1.8;margin-bottom:24px;font-size:14px;">MIS Ta'alamul Huda berdiri sejak 1991 dengan tekad menghadirkan pendidikan dasar berkualitas yang mengintegrasikan ilmu umum dan agama Islam. Kami berkomitmen mencetak generasi Qur'ani yang berilmu, bertaqwa, dan siap menghadapi tantangan zaman.</p>
         <div class="vm-box">
           <div class="vm-label">Visi</div>
-          <div class="vm-text">Terwujudnya peserta didik yang beriman, bertaqwa, berakhlak mulia, berprestasi, dan berwawasan global berdasarkan nilai-nilai Islam.</div>
+          <div class="vm-text" id="schoolVisi">Terwujudnya peserta didik yang beriman, bertaqwa, berakhlak mulia, berprestasi, dan berwawasan global berdasarkan nilai-nilai Islam.</div>
         </div>
         <div class="vm-box">
           <div class="vm-label">Misi</div>
-          <div class="vm-text">Menyelenggarakan pembelajaran yang integratif antara ilmu umum dan agama, membiasakan shalat berjamaah dan baca Al-Qur'an, serta mengembangkan bakat siswa secara optimal.</div>
+          <div class="vm-text" id="schoolMisi">Menyelenggarakan pembelajaran yang integratif antara ilmu umum dan agama, membiasakan shalat berjamaah dan baca Al-Qur'an, serta mengembangkan bakat siswa secara optimal.</div>
         </div>
         <div class="program-grid">
-          <div class="prog-item"><span>📖</span>Program Tahfidz</div>
-          <div class="prog-item"><span>🎨</span>Seni & Budaya</div>
-          <div class="prog-item"><span>⚽</span>Olahraga Prestasi</div>
-          <div class="prog-item"><span>💻</span>Teknologi Dasar</div>
-          <div class="prog-item"><span>🌱</span>Pramuka MI</div>
-          <div class="prog-item"><span>🔬</span>Sains Club</div>
+          <div class="prog-item c1 bounce-in"><span>📖</span>Program Tahfidz</div>
+          <div class="prog-item c2 bounce-in"><span>🎨</span>Seni &amp; Budaya</div>
+          <div class="prog-item c3 bounce-in"><span>⚽</span>Olahraga Prestasi</div>
+          <div class="prog-item c4 bounce-in"><span>💻</span>Teknologi Dasar</div>
+          <div class="prog-item c5 bounce-in"><span>🌱</span>Pramuka MI</div>
+          <div class="prog-item c6 bounce-in"><span>🔬</span>Sains Club</div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- WAVE: Profil → Berita -->
+<div class="wave-divider" style="background:#ffffff;">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0L120,10C240,20,480,40,720,44C960,48,1200,36,1320,30L1440,24L1440,60L0,60Z" fill="#f0fdf4"/>
+  </svg>
+</div>
 
 <!-- BERITA -->
 <section id="berita">
   <div class="container">
-    <div class="section-header center">
-      <div class="section-tag">Terkini</div>
+    <div class="section-header center reveal">
+      <div class="section-tag">🗞️ Terkini</div>
       <h2 class="section-title">Berita &amp; Pengumuman</h2>
-      <p class="section-sub">Ikuti kabar terbaru kegiatan dan prestasi MI Ta'alamul Huda.</p>
+      <p class="section-sub">Ikuti kabar terbaru kegiatan dan prestasi MIS Ta'alamul Huda.</p>
     </div>
     <div class="berita-grid" id="beritaGrid"><!-- JS --></div>
     <div style="text-align:center;margin-top:36px;">
-      <a href="#" class="btn-gold">Lihat Semua Berita →</a>
+      <a href="#" id="btnAllBerita" target="_blank" class="btn-gold">Lihat Semua Berita →</a>
     </div>
   </div>
 </section>
+
+<!-- WAVE: Berita → Galeri -->
+<div class="wave-divider" style="background:#f0fdf4;">
+  <svg viewBox="0 0 1440 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,32L90,24C180,16,360,0,540,0C720,0,900,16,1080,24C1260,32,1350,32,1395,32L1440,32L1440,64L0,64Z" fill="#0d3d22"/>
+  </svg>
+</div>
 
 <!-- GALERI -->
 <section id="galeri">
   <div class="container">
-    <div class="section-header center">
-      <div class="section-tag">Dokumentasi</div>
+    <div class="section-header center reveal">
+      <div class="section-tag">📸 Dokumentasi</div>
       <h2 class="section-title">Galeri Kegiatan</h2>
-      <p class="section-sub">Momen berharga sehari-hari di MI Ta'alamul Huda.</p>
+      <p class="section-sub">Momen berharga sehari-hari di MIS Ta'alamul Huda.</p>
     </div>
-    <div class="galeri-grid">
-      <div class="g-item"><div class="g-inner">🕌</div><div class="g-overlay"><div class="g-caption">Shalat Berjamaah & Pembinaan Rohani</div></div></div>
-      <div class="g-item"><div class="g-inner">📖</div><div class="g-overlay"><div class="g-caption">Program Tahfidz Al-Qur'an</div></div></div>
-      <div class="g-item"><div class="g-inner">🎓</div><div class="g-overlay"><div class="g-caption">Wisuda & Khataman Qur'an</div></div></div>
-      <div class="g-item"><div class="g-inner">🏆</div><div class="g-overlay"><div class="g-caption">Penerimaan Penghargaan Juara</div></div></div>
-      <div class="g-item"><div class="g-inner">🌿</div><div class="g-overlay"><div class="g-caption">Kegiatan Outing Class & Alam</div></div></div>
+    <div class="galeri-grid" id="galleryGrid">
+      <!-- Gallery images rendered dynamically -->
+    </div>
+    <div class="galeri-social">
+      <a href="https://youtube.com/@taalamulhuda" target="_blank" class="gsoc-btn gsoc-yt">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.5 15.5v-7L16 12Z"/></svg>
+        Subscribe YouTube
+      </a>
+      <a href="https://www.tiktok.com/@taalamul.huda?_r=1&_t=ZS-97TQmG4Otyn" target="_blank" class="gsoc-btn gsoc-tt">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 0 1-3.07-1.34V14.6a4.6 4.6 0 1 1-3.96-4.55v2.3a2.3 2.3 0 1 0 1.66 2.21V2h2.3a4.28 4.28 0 0 0 3.07 4.06Z"/></svg>
+        Follow TikTok
+      </a>
     </div>
   </div>
 </section>
+
+<!-- WAVE: Galeri → Testimoni -->
+<div class="wave-divider" style="background:linear-gradient(160deg,#0d3d22,#1e3a5e);">
+  <svg viewBox="0 0 1440 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,64L180,48C360,32,720,0,1080,0C1260,0,1350,16,1395,24L1440,32L1440,64L0,64Z" fill="#fefce8"/>
+  </svg>
+</div>
 
 <!-- TESTIMONI -->
 <section id="testimoni">
   <div class="container">
-    <div class="section-header center">
-      <div class="section-tag">Kata Mereka</div>
+    <div class="section-header center reveal">
+      <div class="section-tag">💬 Kata Mereka</div>
       <h2 class="section-title">Testimoni</h2>
-      <p class="section-sub">Pengalaman orang tua dan alumni bersama MI Ta'alamul Huda.</p>
+      <p class="section-sub">Pengalaman orang tua dan alumni bersama MIS Ta'alamul Huda.</p>
     </div>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Alhamdulillah, anak saya sangat berkembang sejak masuk MI Ta'alamul Huda. Akhlaknya membaik, hafalan Qur'annya pun terus bertambah. Guru-gurunya sabar dan berdedikasi.</p>
-        <div class="testi-author"><div class="tav">U</div><div><div class="t-name">Ummu Fatimah</div><div class="t-role">Orang Tua Siswa Kelas 3</div></div></div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Sebagai wali murid, saya sangat puas. Madrasah ini tidak hanya mengajar pelajaran umum, tapi juga membentuk karakter Islami yang kuat. Highly recommended!</p>
-        <div class="testi-author"><div class="tav">A</div><div><div class="t-name">Ahmad Rifa'i</div><div class="t-role">Orang Tua Siswa Kelas 5</div></div></div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Anak saya yang dulu pemalu, sekarang berani tampil di depan umum. Program seni dan kegiatan ekstrakurikulernya luar biasa. Terima kasih MI Ta'alamul Huda!</p>
-        <div class="testi-author"><div class="tav">S</div><div><div class="t-name">Siti Aminah</div><div class="t-role">Orang Tua Siswa Kelas 4</div></div></div>
-      </div>
+    <div class="testi-grid" id="testiGrid">
+      <!-- Testimonials rendered dynamically -->
     </div>
   </div>
 </section>
 
+<!-- WAVE: Testimoni → Kontak -->
+<div class="wave-divider" style="background:linear-gradient(160deg,#fefce8,#eff6ff);">
+  <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,28L120,20C240,12,480,0,720,4C960,8,1200,24,1320,32L1440,40L1440,56L0,56Z" fill="#ffffff"/>
+  </svg>
+</div>
+
 <!-- KONTAK -->
 <section id="kontak">
   <div class="container">
-    <div class="section-header">
-      <div class="section-tag">Hubungi Kami</div>
+    <div class="section-header reveal">
+      <div class="section-tag">📍 Hubungi Kami</div>
       <h2 class="section-title">Kontak &amp; Lokasi</h2>
       <p class="section-sub">Kami siap melayani. Kunjungi madrasah atau hubungi kami.</p>
     </div>
     <div class="kontak-grid">
-      <div>
-        <div class="kontak-item"><div class="k-icon">📍</div><div class="k-detail"><strong>Alamat</strong><span>Jl. Pesantren No. 5, Desa Harapan Jaya,<br>Kecamatan Sejahtera, Kab. Makmur 45123</span></div></div>
-        <div class="kontak-item"><div class="k-icon">📞</div><div class="k-detail"><strong>Telepon</strong><span>(0231) 456-7890</span></div></div>
-        <div class="kontak-item"><div class="k-icon">✉️</div><div class="k-detail"><strong>Email</strong><span>info@mitaalamulhuda.sch.id<br>ppdb@mitaalamulhuda.sch.id</span></div></div>
+      <div class="reveal">
+        <div class="kontak-item"><div class="k-icon">📍</div><div class="k-detail"><strong>Alamat</strong><span id="contactAlamat">Jl.Permata Ds.Curug,<br>Kec. Gunung Sindur, Kab. Bogor, Jawa Barat 16340</span></div></div>
+        <div class="kontak-item"><div class="k-icon">📞</div><div class="k-detail"><strong>Telepon</strong><span id="contactTelp">(0251) 861-4072</span></div></div>
+        <div class="kontak-item"><div class="k-icon">✉️</div><div class="k-detail"><strong>Email</strong><span id="contactEmail">info@mitaalamulhuda.sch.id</span></div></div>
         <div class="kontak-item"><div class="k-icon">🕐</div><div class="k-detail"><strong>Jam Operasional</strong><span>Senin – Jumat: 07.00 – 14.30 WIB<br>Sabtu: 07.00 – 11.00 WIB</span></div></div>
-        <a href="https://wa.me/6281234567890?text=Assalamu'alaikum%20MI%20Ta'alamul%20Huda%2C%20saya%20ingin%20bertanya." target="_blank" class="wa-btn">
+        <a href="#" id="contactWA" target="_blank" class="wa-btn">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Chat WhatsApp
         </a>
       </div>
-      <div>
+      <div class="reveal">
         <div class="map-box">
           <div>
             <div>🗺️</div>
-            <p><strong>MI Ta'alamul Huda</strong><br>Jl. Pesantren No. 5, Kab. Makmur<br><br><a href="https://maps.google.com/?q=Madrasah+Ibtidaiyah" target="_blank">📍 Buka di Google Maps →</a></p>
+            <p><strong>MIS Ta'alamul Huda</strong><br>Jl.Permata Ds.Curug, Kec. Gunung Sindur, Kab. Bogor.<br><br><a href="https://maps.app.goo.gl/1rjo3ruW6G9aAZnFA?g_st=ac" target="_blank">📍 Buka di Google Maps →</a></p>
           </div>
         </div>
       </div>
@@ -568,9 +758,9 @@ footer .admin-link { color: rgba(255,255,255,.2); font-size: 11px; }
 <!-- FOOTER -->
 <footer>
   <div class="footer-arabic">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</div>
-  <div class="footer-name">MI Ta'alamul Huda</div>
-  <p>Jl. Pesantren No. 5, Desa Harapan Jaya · (0231) 456-7890 · info@mitaalamulhuda.sch.id</p>
-  <p style="margin-top:12px;">&copy; 2025 MI Ta'alamul Huda. Semua hak dilindungi.</p>
+  <div class="footer-name">MIS Ta'alamul Huda</div>
+  <p>Jl.Permata Ds.Curug, Kec. Gunung Sindur · (0231) 456-7890 · info@mitaalamulhuda.sch.id</p>
+  <p style="margin-top:12px;">© 2025 MIS Ta'alamul Huda. Semua hak dilindungi.</p>
   <p style="margin-top:14px;">
     <a href="index.html">Beranda</a> ·
     <a href="pendaftaran.html">Pendaftaran</a> ·
@@ -583,23 +773,167 @@ function toggleMenu(){ document.getElementById('mobMenu').classList.toggle('open
 function closeMenu(){ document.getElementById('mobMenu').classList.remove('open'); }
 window.addEventListener('scroll', closeMenu);
 
-// Berita data
-const beritaData = [
-  { bg:'bg1', emoji:'📢', cat:'Pengumuman', date:'10 Mei 2025', title:'Pembukaan PPDB Tahun Ajaran 2025/2026 Resmi Dibuka', excerpt:'Pendaftaran siswa baru MI Ta\'alamul Huda kini telah dibuka. Kuota terbatas, segera daftarkan putra-putri Anda.' },
-  { bg:'bg2', emoji:'🏆', cat:'Prestasi', date:'5 Mei 2025', title:'Siswa Kami Juara 1 MTQ Tingkat Kabupaten', excerpt:'Alhamdulillah, atas izin Allah, siswa kami berhasil meraih Juara 1 Musabaqah Tilawatil Qur\'an tingkat kabupaten.' },
-  { bg:'bg3', emoji:'🌙', cat:'Kegiatan', date:'1 Mei 2025', title:'Pesantren Ramadhan & Khataman Al-Qur\'an 2025', excerpt:'Sebanyak 35 siswa berhasil mengkhatamkan Al-Qur\'an dalam program Pesantren Ramadhan yang berlangsung selama 2 pekan.' },
-];
-const grid = document.getElementById('beritaGrid');
-beritaData.forEach(b => {
-  grid.innerHTML += `<div class="berita-card">
-    <div class="berita-img ${b.bg}">${b.emoji}<span class="berita-cat">${b.cat}</span></div>
-    <div class="berita-body">
-      <div class="berita-date">📅 ${b.date}</div>
-      <div class="berita-title">${b.title}</div>
-      <div class="berita-excerpt">${b.excerpt}</div>
-      <a href="#" class="berita-read">Baca Selengkapnya</a>
-    </div>
-  </div>`;
+const API_HOST = window.location.origin.includes('5500') ? 'http://localhost:3000' : '';
+const API = `${API_HOST}/api`;
+
+let activeCategory = 'Semua';
+let galleryData = [];
+
+// ── SCROLL REVEAL ────────────────────────────────────
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .bounce-in').forEach(el => revealObserver.observe(el));
+
+// ── LOAD PROFIL ───────────────────────────────────────────────
+async function loadProfil() {
+  try {
+    const res = await fetch(`${API}/konten/profil`);
+    const data = await res.json();
+    if (data.success) {
+      const p = data.data;
+      if (document.getElementById('schoolName')) document.getElementById('schoolName').textContent = p.nama || 'MI Ta\'alamul Huda';
+      if (document.getElementById('schoolTagline')) document.getElementById('schoolTagline').textContent = p.tagline || 'Madrasah Ibtidaiyah';
+      if (document.getElementById('schoolNsmNpsn')) document.getElementById('schoolNsmNpsn').textContent = `${p.nsm || '—'} / ${p.npsn || '—'}`;
+      if (document.getElementById('schoolAkreditasi')) document.getElementById('schoolAkreditasi').textContent = p.akreditasi || '—';
+      if (document.getElementById('schoolKepala')) document.getElementById('schoolKepala').textContent = p.kepala || '—';
+      if (document.getElementById('schoolAlamatMini')) document.getElementById('schoolAlamatMini').textContent = p.alamat || '—';
+      if (document.getElementById('schoolVisi')) document.getElementById('schoolVisi').textContent = p.visi || '';
+      if (document.getElementById('schoolMisi')) document.getElementById('schoolMisi').textContent = p.misi || '';
+      if (document.getElementById('contactAlamat')) document.getElementById('contactAlamat').innerHTML = (p.alamat || '').replace(/\n/g, '<br>');
+      if (document.getElementById('contactTelp')) document.getElementById('contactTelp').textContent = p.telepon || '';
+      if (document.getElementById('contactEmail')) document.getElementById('contactEmail').textContent = p.email || '';
+      if (document.getElementById('contactWA') && p.wa_number) {
+        document.getElementById('contactWA').href = `https://wa.me/${p.wa_number}?text=Assalamu'alaikum%20MI%20Ta'alamul%20Huda`;
+      }
+      if (document.getElementById('btnAllBerita') && p.instagram_url) {
+        document.getElementById('btnAllBerita').href = p.instagram_url;
+      }
+    }
+  } catch (err) {
+    console.error('Gagal memuat profil:', err);
+  }
+}
+
+// ── LOAD BERITA ───────────────────────────────────────────────
+async function loadNews() {
+  try {
+    const res = await fetch(`${API}/konten/berita`);
+    const data = await res.json();
+    if (data.success) {
+      const grid = document.getElementById('beritaGrid');
+      if (data.data.length === 0) {
+        grid.innerHTML = '<p style="grid-column: span 3; text-align: center; color: var(--gray); padding: 24px 0;">Belum ada berita &amp; pengumuman.</p>';
+        return;
+      }
+      grid.innerHTML = data.data.slice(0, 3).map((b, index) => {
+        const bgs = ['bg1', 'bg2', 'bg3'];
+        const bgClass = bgs[index % bgs.length];
+        const coverSrc = b.gambar_cover ? `${API_HOST}/${b.gambar_cover}` : '';
+        const coverHtml = coverSrc
+          ? `<img src="${coverSrc}" style="width: 100%; height: 100%; object-fit: cover;" />`
+          : `<div class="berita-img ${bgClass}">📰</div>`;
+        const clickAction = b.instagram_url ? `onclick="window.open('${b.instagram_url}', '_blank')"` : '';
+        return `
+          <div class="berita-card reveal" ${clickAction}>
+            <div style="height: 190px; overflow: hidden; position: relative;">
+              ${coverHtml}
+              <span class="berita-cat">${b.kategori}</span>
+            </div>
+            <div class="berita-body">
+              <div class="berita-date">📅 ${new Date(b.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</div>
+              <div class="berita-title">${b.judul}</div>
+              <div class="berita-excerpt">${b.konten}</div>
+              ${b.instagram_url ? `<a href="${b.instagram_url}" target="_blank" class="berita-read">Baca Selengkapnya</a>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+      // Re-observe new elements
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+    }
+  } catch (err) {
+    console.error('Gagal memuat berita:', err);
+  }
+}
+
+// ── LOAD TESTIMONI ────────────────────────────────────────────
+async function loadTestimonials() {
+  try {
+    const res = await fetch(`${API}/konten/testimoni`);
+    const data = await res.json();
+    if (data.success) {
+      const grid = document.getElementById('testiGrid');
+      if (data.data.length === 0) {
+        grid.innerHTML = '<p style="grid-column: span 3; text-align: center; color: var(--gray); padding: 24px 0;">Belum ada testimoni.</p>';
+        return;
+      }
+      grid.innerHTML = data.data.map(t => {
+        const stars = '★'.repeat(t.bintang) + '☆'.repeat(5 - t.bintang);
+        const initial = t.nama ? t.nama.charAt(0).toUpperCase() : 'A';
+        return `
+          <div class="testi-card reveal">
+            <div class="testi-stars">${stars}</div>
+            <p class="testi-text">${t.teks}</p>
+            <div class="testi-author">
+              <div class="tav">${initial}</div>
+              <div>
+                <div class="t-name">${t.nama}</div>
+                <div class="t-role">${t.peran || 'Orang Tua Siswa'}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+    }
+  } catch (err) {
+    console.error('Gagal memuat testimoni:', err);
+  }
+}
+
+// ── LOAD GALERI ───────────────────────────────────────────────
+async function loadGaleri() {
+  try {
+    const res = await fetch(`${API}/konten/galeri`);
+    const data = await res.json();
+    if (data.success) {
+      const grid = document.getElementById('galleryGrid');
+      if (!grid) return;
+      const items = data.data.slice(0, 5);
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="grid-column: span 4; text-align: center; color: rgba(255,255,255,0.6); padding: 48px 0;">Belum ada dokumentasi.</p>';
+        return;
+      }
+      grid.innerHTML = items.map((item, index) => {
+        const isLarge = index === 0 && items.length > 1;
+        const style = isLarge ? 'grid-column: span 2; grid-row: span 2;' : '';
+        return `
+          <div class="g-item" style="${style}">
+            <img src="${API_HOST}/${item.gambar}" />
+            <div class="g-overlay">
+              <div class="g-caption">${item.judul}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  } catch (err) {
+    console.error('Gagal memuat galeri:', err);
+  }
+}
+
+// ── BOOTSTRAP ──────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadProfil();
+  loadNews();
+  loadTestimonials();
+  loadGaleri();
 });
 </script>
 </body>

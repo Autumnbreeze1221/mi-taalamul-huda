@@ -2,6 +2,9 @@
 const express = require('express');
 const pool    = require('../db');
 const auth    = require('../middleware/auth');
+const path    = require('path');
+const fs      = require('fs');
+const { uploadBeritaCover, uploadGaleriGambar, getRelativePath } = require('../middleware/upload');
 const router  = express.Router();
 
 // ════════ BERITA ═══════════════════════════════════════════════
@@ -29,20 +32,27 @@ router.get('/berita/all', auth, async (req, res) => {
 });
 
 // POST /api/konten/berita — tambah berita (admin)
-router.post('/berita', auth, async (req, res) => {
-  const { judul, kategori, konten, emoji } = req.body;
-  if (!judul || !konten) {
-    return res.status(400).json({ success: false, message: 'Judul dan konten wajib diisi.' });
-  }
-  try {
-    const result = await pool.query(
-      'INSERT INTO berita (judul, kategori, konten, emoji) VALUES ($1,$2,$3,$4) RETURNING *',
-      [judul, kategori || 'Umum', konten, emoji || '📰']
-    );
-    res.status(201).json({ success: true, data: result.rows[0] });
-  } catch (err) {
-    res.status(500).json({ success: false, message: 'Server error.' });
-  }
+router.post('/berita', auth, (req, res) => {
+  uploadBeritaCover(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ success: false, message: err.message });
+    }
+    const { judul, kategori, konten, instagram_url } = req.body;
+    if (!judul || !konten) {
+      return res.status(400).json({ success: false, message: 'Judul dan konten wajib diisi.' });
+    }
+    const gambar_cover = req.file ? getRelativePath(req.file) : null;
+    try {
+      const result = await pool.query(
+        'INSERT INTO berita (judul, kategori, konten, instagram_url, gambar_cover) VALUES ($1,$2,$3,$4,$5) RETURNING *',
+        [judul, kategori || 'Umum', konten, instagram_url || null, gambar_cover]
+      );
+      res.status(201).json({ success: true, data: result.rows[0] });
+    } catch (err) {
+      console.error('Add berita error:', err);
+      res.status(500).json({ success: false, message: 'Server error.' });
+    }
+  });
 });
 
 // PATCH /api/konten/berita/:id/toggle — aktif/nonaktif
@@ -61,9 +71,17 @@ router.patch('/berita/:id/toggle', auth, async (req, res) => {
 // DELETE /api/konten/berita/:id
 router.delete('/berita/:id', auth, async (req, res) => {
   try {
+    const beritaRes = await pool.query('SELECT gambar_cover FROM berita WHERE id = $1', [req.params.id]);
+    if (beritaRes.rows.length > 0 && beritaRes.rows[0].gambar_cover) {
+      const filePath = path.join(__dirname, '..', beritaRes.rows[0].gambar_cover);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
     await pool.query('DELETE FROM berita WHERE id = $1', [req.params.id]);
     res.json({ success: true, message: 'Berita dihapus.' });
   } catch (err) {
+    console.error('Delete berita error:', err);
     res.status(500).json({ success: false, message: 'Server error.' });
   }
 });
@@ -137,25 +155,42 @@ router.get('/galeri/all', auth, async (req, res) => {
   }
 });
 
-router.post('/galeri', auth, async (req, res) => {
-  const { judul, emoji, kategori } = req.body;
-  if (!judul) return res.status(400).json({ success: false, message: 'Judul wajib diisi.' });
-  try {
-    const result = await pool.query(
-      'INSERT INTO galeri (judul, emoji, kategori) VALUES ($1,$2,$3) RETURNING *',
-      [judul, emoji || '🖼️', kategori || 'Umum']
-    );
-    res.status(201).json({ success: true, data: result.rows[0] });
-  } catch (err) {
-    res.status(500).json({ success: false, message: 'Server error.' });
-  }
+router.post('/galeri', auth, (req, res) => {
+  uploadGaleriGambar(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ success: false, message: err.message });
+    }
+    const { judul, kategori } = req.body;
+    if (!judul) return res.status(400).json({ success: false, message: 'Judul wajib diisi.' });
+    const gambar = req.file ? getRelativePath(req.file) : null;
+    if (!gambar) return res.status(400).json({ success: false, message: 'Gambar wajib diunggah.' });
+
+    try {
+      const result = await pool.query(
+        'INSERT INTO galeri (judul, kategori, gambar) VALUES ($1,$2,$3) RETURNING *',
+        [judul, kategori || 'Umum', gambar]
+      );
+      res.status(201).json({ success: true, data: result.rows[0] });
+    } catch (err) {
+      console.error('Add galeri error:', err);
+      res.status(500).json({ success: false, message: 'Server error.' });
+    }
+  });
 });
 
 router.delete('/galeri/:id', auth, async (req, res) => {
   try {
+    const galeriRes = await pool.query('SELECT gambar FROM galeri WHERE id = $1', [req.params.id]);
+    if (galeriRes.rows.length > 0 && galeriRes.rows[0].gambar) {
+      const filePath = path.join(__dirname, '..', galeriRes.rows[0].gambar);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
     await pool.query('DELETE FROM galeri WHERE id = $1', [req.params.id]);
     res.json({ success: true, message: 'Item galeri dihapus.' });
   } catch (err) {
+    console.error('Delete galeri error:', err);
     res.status(500).json({ success: false, message: 'Server error.' });
   }
 });

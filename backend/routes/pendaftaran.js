@@ -8,13 +8,20 @@ const router    = express.Router();
 // ─── Helper: generate nomor daftar ───────────────────────────
 async function generateNomor() {
   const year = new Date().getFullYear();
+  // Gunakan MAX() bukan COUNT() agar tidak konflik saat ada data yang dihapus
   const result = await pool.query(
-    'SELECT COUNT(*) FROM pendaftar WHERE EXTRACT(YEAR FROM tanggal_daftar) = $1',
-    [year]
+    `SELECT COALESCE(
+       MAX(CAST(SUBSTRING(nomor_daftar FROM 9) AS INTEGER)),
+       0
+     ) AS max_num
+     FROM pendaftar
+     WHERE nomor_daftar LIKE $1`,
+    [`TH-${year}-%`]
   );
-  const count = parseInt(result.rows[0].count) + 1;
-  return `TH-${year}-${String(count).padStart(4, '0')}`;
+  const nextNum = parseInt(result.rows[0].max_num) + 1;
+  return `TH-${year}-${String(nextNum).padStart(4, '0')}`;
 }
+
 
 // ─── POST /api/pendaftaran — Submit form pendaftaran ─────────
 router.post('/', (req, res) => {

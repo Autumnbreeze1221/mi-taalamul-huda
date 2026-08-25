@@ -17,7 +17,7 @@ app.use(cors({
     if (!origin) return callback(null, true);
     
     const isLocal = origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('5500');
-    const isVercel = origin.includes('vercel.app') || origin.includes('mi-taalamul-huda');
+    const isVercel = origin.includes('vercel.app') || origin.includes('mi-taalamul-huda') || origin.includes('mistaalamulhuda.com');
     const isCustomDomain = process.env.FRONTEND_URL && origin.includes(process.env.FRONTEND_URL.replace(/https?:\/\//, ''));
     
     if (isLocal || isVercel || isCustomDomain) {
